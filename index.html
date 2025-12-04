@@ -1,0 +1,1341 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sprechbattle Arena - Roulette</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #0a0a0a;
+            color: white;
+            overflow: hidden;
+        }
+
+        .screen {
+            width: 100vw;
+            height: 100vh;
+            display: none;
+            position: relative;
+        }
+
+        .screen.active {
+            display: flex;
+        }
+
+        /* SETUP SCREEN */
+        #setupScreen {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            flex-direction: column;
+            padding: 30px;
+        }
+
+        .setup-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .setup-header h1 {
+            font-size: 2.8em;
+            margin-bottom: 10px;
+        }
+
+        .setup-header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        .setup-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            flex: 1;
+            overflow-y: auto;
+        }
+
+        .team-setup {
+            background: rgba(255,255,255,0.1);
+            border-radius: 12px;
+            padding: 15px;
+            backdrop-filter: blur(10px);
+        }
+
+        .team-setup-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 15px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid rgba(255,255,255,0.3);
+        }
+
+        .team-icon {
+            font-size: 2em;
+        }
+
+        .team-name {
+            font-size: 1.3em;
+            font-weight: bold;
+        }
+
+        .participants-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .participant-row {
+            display: flex;
+            gap: 6px;
+            align-items: center;
+        }
+
+        .participant-input {
+            background: rgba(255,255,255,0.2);
+            border: 2px solid rgba(255,255,255,0.3);
+            border-radius: 6px;
+            padding: 8px;
+            color: white;
+            font-size: 0.95em;
+            flex: 1;
+        }
+
+        .participant-input::placeholder {
+            color: rgba(255,255,255,0.6);
+        }
+
+        .level-buttons {
+            display: flex;
+            gap: 3px;
+        }
+
+        .level-btn {
+            width: 30px;
+            height: 30px;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+            background: rgba(0,0,0,0.2);
+        }
+
+        .level-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .level-btn.active {
+            border-width: 3px;
+            box-shadow: 0 0 10px;
+        }
+
+        .level-btn.rubin {
+            border-color: #e74c3c;
+        }
+
+        .level-btn.rubin.active {
+            background: rgba(231, 76, 60, 0.4);
+            box-shadow: 0 0 10px #e74c3c;
+        }
+
+        .level-btn.smaragd {
+            border-color: #27ae60;
+        }
+
+        .level-btn.smaragd.active {
+            background: rgba(39, 174, 96, 0.4);
+            box-shadow: 0 0 10px #27ae60;
+        }
+
+        .level-btn.amethyst {
+            border-color: #9b59b6;
+        }
+
+        .level-btn.amethyst.active {
+            background: rgba(155, 89, 182, 0.4);
+            box-shadow: 0 0 10px #9b59b6;
+        }
+
+        .add-participant-btn {
+            background: rgba(76, 175, 80, 0.3);
+            border: 2px solid #4caf50;
+            color: white;
+            padding: 8px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.9em;
+            transition: all 0.3s;
+            margin-top: 5px;
+        }
+
+        .add-participant-btn:hover {
+            background: rgba(76, 175, 80, 0.5);
+        }
+
+        /* ROULETTE SCREEN */
+        #rouletteScreen {
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 30px;
+        }
+
+        .roulette-title {
+            font-size: 3em;
+            margin-bottom: 30px;
+            text-align: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .mode-selection {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .mode-btn {
+            background: rgba(255,255,255,0.1);
+            border: 3px solid;
+            color: white;
+            padding: 12px 30px;
+            font-size: 1.2em;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: bold;
+        }
+
+        .mode-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px;
+        }
+
+        .mode-btn.situation {
+            border-color: #3498db;
+        }
+
+        .mode-btn.situation:hover {
+            background: rgba(52, 152, 219, 0.3);
+            box-shadow: 0 0 20px #3498db;
+        }
+
+        .mode-btn.mystery {
+            border-color: #e74c3c;
+        }
+
+        .mode-btn.mystery:hover {
+            background: rgba(231, 76, 60, 0.3);
+            box-shadow: 0 0 20px #e74c3c;
+        }
+
+        .mode-btn.schnellfeuer {
+            border-color: #f39c12;
+        }
+
+        .mode-btn.schnellfeuer:hover {
+            background: rgba(243, 156, 18, 0.3);
+            box-shadow: 0 0 20px #f39c12;
+        }
+
+        .mode-btn.eskalation {
+            border-color: #9b59b6;
+        }
+
+        .mode-btn.eskalation:hover {
+            background: rgba(155, 89, 182, 0.3);
+            box-shadow: 0 0 20px #9b59b6;
+        }
+
+        .level-selection {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 40px;
+        }
+
+        .level-roulette-btn {
+            background: rgba(255,255,255,0.1);
+            border: 3px solid;
+            color: white;
+            padding: 15px 40px;
+            font-size: 1.3em;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: bold;
+        }
+
+        .level-roulette-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px;
+        }
+
+        .level-roulette-btn.rubin {
+            border-color: #e74c3c;
+        }
+
+        .level-roulette-btn.rubin:hover {
+            background: rgba(231, 76, 60, 0.3);
+            box-shadow: 0 0 20px #e74c3c;
+        }
+
+        .level-roulette-btn.smaragd {
+            border-color: #27ae60;
+        }
+
+        .level-roulette-btn.smaragd:hover {
+            background: rgba(39, 174, 96, 0.3);
+            box-shadow: 0 0 20px #27ae60;
+        }
+
+        .level-roulette-btn.amethyst {
+            border-color: #9b59b6;
+        }
+
+        .level-roulette-btn.amethyst:hover {
+            background: rgba(155, 89, 182, 0.3);
+            box-shadow: 0 0 20px #9b59b6;
+        }
+
+        .roulette-container {
+            display: flex;
+            gap: 60px;
+            align-items: center;
+            margin-bottom: 40px;
+        }
+
+        .roulette-slot {
+            width: 320px;
+            height: 400px;
+            background: rgba(255,255,255,0.05);
+            border: 3px solid rgba(255,255,255,0.2);
+            border-radius: 15px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .roulette-slot.spinning {
+            animation: shake 0.1s infinite;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateY(0); }
+            25% { transform: translateY(-5px); }
+            75% { transform: translateY(5px); }
+        }
+
+        .slot-label {
+            position: absolute;
+            top: 15px;
+            font-size: 1.1em;
+            opacity: 0.7;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .slot-content {
+            text-align: center;
+        }
+
+        .slot-team-icon {
+            font-size: 3.5em;
+            margin-bottom: 12px;
+        }
+
+        .slot-name {
+            font-size: 2em;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .slot-team {
+            font-size: 1.1em;
+            opacity: 0.8;
+            margin-bottom: 8px;
+        }
+
+        .slot-level {
+            font-size: 1.8em;
+        }
+
+        .vs-divider {
+            font-size: 5em;
+            font-weight: bold;
+            background: linear-gradient(135deg, #ff4444 0%, #4444ff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .situation-display {
+            width: 90%;
+            max-width: 1000px;
+        }
+
+        .situation-box {
+            background: rgba(255,215,0,0.1);
+            border: 3px solid rgba(255,215,0,0.5);
+            border-radius: 12px;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .situation-label {
+            font-size: 1.3em;
+            color: #ffd700;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .situation-text {
+            font-size: 1.6em;
+            line-height: 1.6;
+        }
+
+        .mystery-words-display {
+            margin-top: 20px;
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .mystery-word {
+            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+            color: white;
+            padding: 10px 25px;
+            border-radius: 8px;
+            font-size: 1.3em;
+            font-weight: bold;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        /* DIALOG SCREEN */
+        #dialogScreen {
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            flex-direction: column;
+        }
+
+        .dialog-header {
+            height: 18vh;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 40px;
+            background: rgba(0,0,0,0.3);
+            border-bottom: 2px solid rgba(255,255,255,0.1);
+        }
+
+        .participant-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            min-width: 250px;
+        }
+
+        .participant-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2.5em;
+            border: 3px solid white;
+        }
+
+        .participant-info h2 {
+            font-size: 1.8em;
+            text-align: center;
+        }
+
+        .participant-info p {
+            font-size: 1em;
+            opacity: 0.8;
+            text-align: center;
+        }
+
+        .dialog-vs {
+            font-size: 3.5em;
+            font-weight: bold;
+            opacity: 0.5;
+        }
+
+        .dialog-main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 30px;
+        }
+
+        .dialog-situation {
+            background: rgba(255,255,255,0.05);
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .dialog-situation h3 {
+            font-size: 1.6em;
+            color: #ffd700;
+            margin-bottom: 15px;
+        }
+
+        .dialog-situation p {
+            font-size: 1.6em;
+            line-height: 1.6;
+        }
+
+        .dialog-timer {
+            text-align: center;
+        }
+
+        .timer-display {
+            font-size: 6em;
+            font-weight: bold;
+            color: #4caf50;
+        }
+
+        .timer-display.warning {
+            color: #ff4444;
+            animation: pulse 1s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .timer-label {
+            font-size: 1.3em;
+            opacity: 0.8;
+            margin-top: 8px;
+        }
+
+        /* RESULT SCREEN */
+        #resultScreen {
+            background: linear-gradient(135deg, #134e5e 0%, #71b280 100%);
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .result-content {
+            text-align: center;
+        }
+
+        .result-title {
+            font-size: 3.5em;
+            margin-bottom: 30px;
+        }
+
+        .result-participants {
+            display: flex;
+            gap: 80px;
+            margin-bottom: 50px;
+        }
+
+        .result-participant {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .result-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.2);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 3.5em;
+            margin-bottom: 15px;
+        }
+
+        .result-name {
+            font-size: 2em;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .result-points {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #ffd700;
+        }
+
+        /* SCOREBOARD SCREEN */
+        #scoreboardScreen {
+            background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+            flex-direction: column;
+            padding: 30px;
+        }
+
+        .scoreboard-title {
+            font-size: 3em;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .scoreboard-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            flex: 1;
+        }
+
+        .team-scoreboard {
+            background: rgba(255,255,255,0.1);
+            border-radius: 12px;
+            padding: 20px;
+            backdrop-filter: blur(10px);
+        }
+
+        .team-scoreboard-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid rgba(255,255,255,0.3);
+        }
+
+        .team-scoreboard-icon {
+            font-size: 2em;
+        }
+
+        .team-scoreboard-name {
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+
+        .team-total-points {
+            font-size: 2.5em;
+            font-weight: bold;
+            text-align: center;
+            color: #ffd700;
+            margin-bottom: 15px;
+        }
+
+        .participant-scores {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .participant-score {
+            background: rgba(255,255,255,0.1);
+            padding: 10px;
+            border-radius: 6px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .participant-score-name {
+            font-size: 1em;
+        }
+
+        .participant-score-points {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #ffd700;
+        }
+
+        /* CONTROL PANEL */
+        .control-panel {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0,0,0,0.95);
+            padding: 12px 15px;
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            border-top: 2px solid #667eea;
+            z-index: 1000;
+        }
+
+        .control-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            font-size: 0.95em;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: bold;
+        }
+
+        .control-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.5);
+        }
+
+        .control-btn.danger {
+            background: linear-gradient(135deg, #ff4444 0%, #cc0000 100%);
+        }
+
+        .control-btn.success {
+            background: linear-gradient(135deg, #4caf50 0%, #45a049 100%);
+        }
+
+        .control-btn.warning {
+            background: linear-gradient(135deg, #ff9800 0%, #f57c00 100%);
+        }
+
+        .points-input-group {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255,255,255,0.1);
+            padding: 6px 12px;
+            border-radius: 6px;
+        }
+
+        .points-input-group label {
+            font-size: 0.9em;
+            font-weight: bold;
+        }
+
+        .points-input-group input {
+            width: 60px;
+            padding: 6px;
+            font-size: 1.1em;
+            border: 2px solid #667eea;
+            border-radius: 4px;
+            text-align: center;
+            background: rgba(0,0,0,0.5);
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <!-- SETUP SCREEN -->
+    <div class="screen active" id="setupScreen">
+        <div class="setup-header">
+            <h1>🎤 Sprechbattle Arena</h1>
+            <p>Trage die Namen der Teilnehmer ein und wähle ihr Level</p>
+        </div>
+        
+        <div class="setup-grid">
+            <div class="team-setup" data-team="mond">
+                <div class="team-setup-header">
+                    <div class="team-icon">🌙</div>
+                    <div class="team-name">Mond</div>
+                </div>
+                <div class="participants-list" id="participants-mond"></div>
+                <button class="add-participant-btn" onclick="addParticipantInput('mond')">+ Teilnehmer</button>
+            </div>
+
+            <div class="team-setup" data-team="sonne">
+                <div class="team-setup-header">
+                    <div class="team-icon">☀️</div>
+                    <div class="team-name">Sonne</div>
+                </div>
+                <div class="participants-list" id="participants-sonne"></div>
+                <button class="add-participant-btn" onclick="addParticipantInput('sonne')">+ Teilnehmer</button>
+            </div>
+
+            <div class="team-setup" data-team="stern">
+                <div class="team-setup-header">
+                    <div class="team-icon">⭐</div>
+                    <div class="team-name">Stern</div>
+                </div>
+                <div class="participants-list" id="participants-stern"></div>
+                <button class="add-participant-btn" onclick="addParticipantInput('stern')">+ Teilnehmer</button>
+            </div>
+
+            <div class="team-setup" data-team="ozean">
+                <div class="team-setup-header">
+                    <div class="team-icon">🌊</div>
+                    <div class="team-name">Ozean</div>
+                </div>
+                <div class="participants-list" id="participants-ozean"></div>
+                <button class="add-participant-btn" onclick="addParticipantInput('ozean')">+ Teilnehmer</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ROULETTE SCREEN -->
+    <div class="screen" id="rouletteScreen">
+        <h1 class="roulette-title">Wähle Spielmodus & Level</h1>
+        
+        <div class="mode-selection">
+            <button class="mode-btn situation" onclick="selectMode('situation')">
+                🎭 Klassischer Dialog
+            </button>
+            <button class="mode-btn mystery" onclick="selectMode('mystery')">
+                🎁 Mystery Box
+            </button>
+            <button class="mode-btn schnellfeuer" onclick="selectMode('schnellfeuer')">
+                ⚡ Schnellfeuer
+            </button>
+            <button class="mode-btn eskalation" onclick="selectMode('eskalation')">
+                🔥 Eskalation
+            </button>
+        </div>
+
+        <div class="level-selection">
+            <button class="level-roulette-btn rubin" onclick="startRouletteByLevel('rubin')">
+                🔴 Rubin
+            </button>
+            <button class="level-roulette-btn smaragd" onclick="startRouletteByLevel('smaragd')">
+                🟢 Smaragd
+            </button>
+            <button class="level-roulette-btn amethyst" onclick="startRouletteByLevel('amethyst')">
+                🟣 Amethyst
+            </button>
+        </div>
+        
+        <div class="roulette-container">
+            <div class="roulette-slot" id="slot1">
+                <div class="slot-label">Spieler 1</div>
+                <div class="slot-content">
+                    <div class="slot-team-icon">🌙</div>
+                    <div class="slot-name">???</div>
+                    <div class="slot-team">Team ???</div>
+                    <div class="slot-level">🔴</div>
+                </div>
+            </div>
+
+            <div class="vs-divider">VS</div>
+
+            <div class="roulette-slot" id="slot2">
+                <div class="slot-label">Spieler 2</div>
+                <div class="slot-content">
+                    <div class="slot-team-icon">☀️</div>
+                    <div class="slot-name">???</div>
+                    <div class="slot-team">Team ???</div>
+                    <div class="slot-level">🔴</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="situation-display">
+            <div class="situation-box">
+                <div class="situation-label" id="situationLabel">🎯 Eure Aufgabe</div>
+                <div class="situation-text">Wähle zuerst Spielmodus & Level!</div>
+                <div class="mystery-words-display" id="mysteryWords"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- DIALOG SCREEN -->
+    <div class="screen" id="dialogScreen">
+        <div class="dialog-header">
+            <div class="participant-card">
+                <div class="participant-avatar" id="player1Avatar">🌙</div>
+                <div class="participant-info">
+                    <h2 id="player1Name">Spieler 1</h2>
+                    <p id="player1Team">Team Mond</p>
+                </div>
+            </div>
+
+            <div class="dialog-vs">VS</div>
+
+            <div class="participant-card">
+                <div class="participant-avatar" id="player2Avatar">☀️</div>
+                <div class="participant-info">
+                    <h2 id="player2Name">Spieler 2</h2>
+                    <p id="player2Team">Team Sonne</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="dialog-main">
+            <div class="dialog-situation">
+                <h3 id="dialogModeTitle">🎯 Eure Aufgabe:</h3>
+                <p id="dialogSituation">Aufgabe wird angezeigt...</p>
+                <div class="mystery-words-display" id="dialogMysteryWords"></div>
+            </div>
+
+            <div class="dialog-timer">
+                <div class="timer-display" id="dialogTimer">--:--</div>
+                <div class="timer-label">Vorbereitungszeit</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- RESULT SCREEN -->
+    <div class="screen" id="resultScreen">
+        <div class="result-content">
+            <h1 class="result-title">📊 Punkte vergeben</h1>
+            
+            <div class="result-participants">
+                <div class="result-participant">
+                    <div class="result-avatar" id="result1Avatar">🌙</div>
+                    <div class="result-name" id="result1Name">Spieler 1</div>
+                    <div class="result-points" id="result1Points">0 Punkte</div>
+                </div>
+
+                <div class="result-participant">
+                    <div class="result-avatar" id="result2Avatar">☀️</div>
+                    <div class="result-name" id="result2Name">Spieler 2</div>
+                    <div class="result-points" id="result2Points">0 Punkte</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SCOREBOARD SCREEN -->
+    <div class="screen" id="scoreboardScreen">
+        <h1 class="scoreboard-title">📊 Punktestand</h1>
+        
+        <div class="scoreboard-grid">
+            <div class="team-scoreboard">
+                <div class="team-scoreboard-header">
+                    <div class="team-scoreboard-icon">🌙</div>
+                    <div class="team-scoreboard-name">Mond</div>
+                </div>
+                <div class="team-total-points" id="totalMond">0</div>
+                <div class="participant-scores" id="scoresMond"></div>
+            </div>
+
+            <div class="team-scoreboard">
+                <div class="team-scoreboard-header">
+                    <div class="team-scoreboard-icon">☀️</div>
+                    <div class="team-scoreboard-name">Sonne</div>
+                </div>
+                <div class="team-total-points" id="totalSonne">0</div>
+                <div class="participant-scores" id="scoresSonne"></div>
+            </div>
+
+            <div class="team-scoreboard">
+                <div class="team-scoreboard-header">
+                    <div class="team-scoreboard-icon">⭐</div>
+                    <div class="team-scoreboard-name">Stern</div>
+                </div>
+                <div class="team-total-points" id="totalStern">0</div>
+                <div class="participant-scores" id="scoresStern"></div>
+            </div>
+
+            <div class="team-scoreboard">
+                <div class="team-scoreboard-header">
+                    <div class="team-scoreboard-icon">🌊</div>
+                    <div class="team-scoreboard-name">Ozean</div>
+                </div>
+                <div class="team-total-points" id="totalOzean">0</div>
+                <div class="participant-scores" id="scoresOzean"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CONTROL PANEL -->
+    <div class="control-panel">
+        <button class="control-btn success" onclick="showScreen('rouletteScreen')">🎰 Zum Roulette</button>
+        <button class="control-btn" onclick="startDialog()">▶️ Dialog starten</button>
+        <button class="control-btn" onclick="startTimer(120)">⏱️ 2 Min</button>
+        <button class="control-btn" onclick="startTimer(180)">⏱️ 3 Min</button>
+        
+        <div class="points-input-group">
+            <label>Spieler 1:</label>
+            <input type="number" id="points1" value="10" min="0" max="50">
+            <button class="control-btn warning" onclick="givePoints(1)">✅</button>
+        </div>
+        
+        <div class="points-input-group">
+            <label>Spieler 2:</label>
+            <input type="number" id="points2" value="10" min="0" max="50">
+            <button class="control-btn warning" onclick="givePoints(2)">✅</button>
+        </div>
+        
+        <button class="control-btn" onclick="showScoreboard()">📊 Punktestand</button>
+        <button class="control-btn danger" onclick="resetAll()">🔄 Neu starten</button>
+    </div>
+
+    <script>
+        // Data
+        const teams = {
+            mond: { name: 'Mond', icon: '🌙', participants: [] },
+            sonne: { name: 'Sonne', icon: '☀️', participants: [] },
+            stern: { name: 'Stern', icon: '⭐', participants: [] },
+            ozean: { name: 'Ozean', icon: '🌊', participants: [] }
+        };
+
+        const situations = {
+            rubin: [
+                "Ihr plant einen Ausflug in den Park. Wann geht ihr? Was nehmt ihr mit?",
+                "Ihr möchtet zusammen kochen. Was kocht ihr? Wer kauft die Zutaten ein?",
+                "Ihr plant einen Filmabend. Welchen Film schaut ihr? Wer bringt was mit?",
+                "Ihr wollt zusammen Sport machen. Welcher Sport? Wann und wo?",
+                "Ihr plant ein Picknick. Was nehmt ihr mit? Wie ist das Wetter?",
+                "Ihr möchtet ein Geschenk kaufen. Für wen? Was ist passend?",
+                "Ihr möchtet in ein Café gehen. Welches? Was trinkt und esst ihr?",
+                "Ihr wollt schwimmen gehen. Freibad oder Hallenbad? Wann?"
+            ],
+            smaragd: [
+                "Ihr plant einen Städtetrip. Welche Stadt? Was wollt ihr sehen?",
+                "Ihr organisiert eine Geburtstagsparty. Was macht ihr? Wen ladet ihr ein?",
+                "Ihr plant eine Fahrradtour. Wohin? Wie lange? Was nehmt ihr mit?",
+                "Ihr wollt zusammen lernen. Wann? Wo? Was lernt ihr?",
+                "Ihr organisiert einen Spieleabend. Welche Spiele? Wer kommt?",
+                "Ihr geht zusammen einkaufen. Was kauft ihr? Wo?"
+            ],
+            amethyst: [
+                "Problem: Der Ausflug kostet zu viel. Wie löst ihr das?",
+                "Eure Party wird zu laut. Die Nachbarn beschweren sich. Was tun?",
+                "Ihr habt verschiedene Meinungen über das Essen. Kompromiss?",
+                "Das Wetter ist schlecht. Plant schnell um!",
+                "Ein Freund kann nicht zur Party kommen. Wie reagiert ihr?",
+                "Ihr plant eine Reise mit kleinem Budget. Wie macht ihr das?",
+                "Ihr wollt einen Kurs machen, aber habt verschiedene Zeiten. Lösung?",
+                "Euer Café hat geschlossen. Wohin geht ihr stattdessen?"
+            ]
+        };
+
+        const mysteryWords = [
+            ["Hund", "Montag", "Pizza"],
+            ["Musik", "Freund", "Park"],
+            ["Wetter", "Auto", "Kuchen"],
+            ["Sport", "Café", "Sonntag"],
+            ["Film", "Geschenk", "Museum"],
+            ["Telefon", "Bahnhof", "Schokolade"],
+            ["Computer", "Restaurant", "Fußball"],
+            ["Fahrrad", "Strand", "Konzert"]
+        ];
+
+        const levelIcons = {
+            rubin: '🔴',
+            smaragd: '🟢',
+            amethyst: '🟣'
+        };
+
+        const levelNames = {
+            rubin: 'Rubin',
+            smaragd: 'Smaragd',
+            amethyst: 'Amethyst'
+        };
+
+        const modeNames = {
+            situation: '🎭 Klassischer Dialog',
+            mystery: '🎁 Mystery Box',
+            schnellfeuer: '⚡ Schnellfeuer',
+            eskalation: '🔥 Eskalation'
+        };
+
+        let currentPlayer1 = null;
+        let currentPlayer2 = null;
+        let currentSituation = null;
+        let currentMode = 'situation';
+        let currentMysteryWords = [];
+        let timerInterval = null;
+
+        // Setup Functions
+        function addParticipantInput(team) {
+            const container = document.getElementById(`participants-${team}`);
+            
+            const row = document.createElement('div');
+            row.className = 'participant-row';
+            
+            const input = document.createElement('input');
+            input.type = 'text';
+            input.className = 'participant-input';
+            input.placeholder = `Name...`;
+            input.addEventListener('blur', () => updateParticipants(team));
+            input.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') updateParticipants(team);
+            });
+            
+            const levelButtons = document.createElement('div');
+            levelButtons.className = 'level-buttons';
+            
+            ['rubin', 'smaragd', 'amethyst'].forEach(level => {
+                const btn = document.createElement('button');
+                btn.className = `level-btn ${level}`;
+                btn.textContent = levelIcons[level];
+                btn.dataset.level = level;
+                btn.onclick = (e) => {
+                    e.preventDefault();
+                    row.querySelectorAll('.level-btn').forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    input.dataset.level = level;
+                    updateParticipants(team);
+                };
+                levelButtons.appendChild(btn);
+            });
+            
+            row.appendChild(input);
+            row.appendChild(levelButtons);
+            container.appendChild(row);
+            input.focus();
+        }
+
+        function updateParticipants(team) {
+            const container = document.getElementById(`participants-${team}`);
+            const rows = container.querySelectorAll('.participant-row');
+            teams[team].participants = [];
+            
+            rows.forEach(row => {
+                const input = row.querySelector('.participant-input');
+                const name = input.value.trim();
+                const level = input.dataset.level;
+                
+                if (name && level) {
+                    teams[team].participants.push({
+                        name: name,
+                        level: level,
+                        points: 0
+                    });
+                }
+            });
+        }
+
+        // Initialize with 5 inputs per team
+        ['mond', 'sonne', 'stern', 'ozean'].forEach(team => {
+            for (let i = 0; i < 5; i++) {
+                addParticipantInput(team);
+            }
+        });
+
+        // Mode Selection
+        function selectMode(mode) {
+            currentMode = mode;
+            document.querySelectorAll('.mode-btn').forEach(btn => {
+                btn.style.opacity = '0.5';
+            });
+            event.target.style.opacity = '1';
+        }
+
+        // Roulette Functions
+        function startRouletteByLevel(level) {
+            ['mond', 'sonne', 'stern', 'ozean'].forEach(updateParticipants);
+
+            const levelParticipants = [];
+            Object.keys(teams).forEach(teamKey => {
+                teams[teamKey].participants.forEach(participant => {
+                    if (participant.level === level) {
+                        levelParticipants.push({
+                            name: participant.name,
+                            team: teamKey,
+                            teamName: teams[teamKey].name,
+                            teamIcon: teams[teamKey].icon,
+                            level: level
+                        });
+                    }
+                });
+            });
+
+            if (levelParticipants.length < 2) {
+                alert(`Bitte mindestens 2 Teilnehmer im ${levelNames[level]}-Level!`);
+                return;
+            }
+
+            showScreen('rouletteScreen');
+
+            const slot1 = document.getElementById('slot1');
+            const slot2 = document.getElementById('slot2');
+            slot1.classList.add('spinning');
+            slot2.classList.add('spinning');
+
+            setTimeout(() => {
+                slot1.classList.remove('spinning');
+                slot2.classList.remove('spinning');
+
+                const shuffled = levelParticipants.sort(() => 0.5 - Math.random());
+                currentPlayer1 = shuffled[0];
+                currentPlayer2 = shuffled[1];
+
+                const levelSituations = situations[level];
+                currentSituation = levelSituations[Math.floor(Math.random() * levelSituations.length)];
+
+                displayPlayer(1, currentPlayer1);
+                displayPlayer(2, currentPlayer2);
+
+                // Mode-specific display
+                if (currentMode === 'mystery') {
+                    currentMysteryWords = mysteryWords[Math.floor(Math.random() * mysteryWords.length)];
+                    document.getElementById('situationLabel').textContent = '🎁 Mystery Box Challenge';
+                    document.querySelector('.situation-text').textContent = currentSituation;
+                    const wordsHTML = currentMysteryWords.map(w => `<div class="mystery-word">${w}</div>`).join('');
+                    document.getElementById('mysteryWords').innerHTML = wordsHTML;
+                } else if (currentMode === 'schnellfeuer') {
+                    document.getElementById('situationLabel').textContent = '⚡ Schnellfeuer - Reagiert schnell!';
+                    document.querySelector('.situation-text').textContent = currentSituation;
+                    document.getElementById('mysteryWords').innerHTML = '';
+                } else if (currentMode === 'eskalation') {
+                    document.getElementById('situationLabel').textContent = '🔥 Eskalation - Probleme kommen!';
+                    document.querySelector('.situation-text').textContent = currentSituation;
+                    document.getElementById('mysteryWords').innerHTML = '';
+                } else {
+                    document.getElementById('situationLabel').textContent = '🎭 Eure Aufgabe';
+                    document.querySelector('.situation-text').textContent = currentSituation;
+                    document.getElementById('mysteryWords').innerHTML = '';
+                }
+            }, 2000);
+        }
+
+        function displayPlayer(slot, player) {
+            const slotEl = document.getElementById(`slot${slot}`);
+            slotEl.querySelector('.slot-team-icon').textContent = player.teamIcon;
+            slotEl.querySelector('.slot-name').textContent = player.name;
+            slotEl.querySelector('.slot-team').textContent = `Team ${player.teamName}`;
+            slotEl.querySelector('.slot-level').textContent = levelIcons[player.level];
+        }
+
+        // Dialog Functions
+        function startDialog() {
+            if (!currentPlayer1 || !currentPlayer2) {
+                alert('Bitte zuerst Roulette drehen!');
+                return;
+            }
+
+            showScreen('dialogScreen');
+
+            document.getElementById('player1Avatar').textContent = currentPlayer1.teamIcon;
+            document.getElementById('player1Name').textContent = currentPlayer1.name;
+            document.getElementById('player1Team').textContent = `Team ${currentPlayer1.teamName}`;
+
+            document.getElementById('player2Avatar').textContent = currentPlayer2.teamIcon;
+            document.getElementById('player2Name').textContent = currentPlayer2.name;
+            document.getElementById('player2Team').textContent = `Team ${currentPlayer2.teamName}`;
+
+            document.getElementById('dialogModeTitle').textContent = modeNames[currentMode];
+            document.getElementById('dialogSituation').textContent = currentSituation;
+
+            if (currentMode === 'mystery') {
+                const wordsHTML = currentMysteryWords.map(w => `<div class="mystery-word">${w}</div>`).join('');
+                document.getElementById('dialogMysteryWords').innerHTML = wordsHTML;
+            } else {
+                document.getElementById('dialogMysteryWords').innerHTML = '';
+            }
+        }
+
+        // Timer
+        function startTimer(seconds) {
+            clearInterval(timerInterval);
+            let remaining = seconds;
+            const display = document.getElementById('dialogTimer');
+
+            timerInterval = setInterval(() => {
+                const mins = Math.floor(remaining / 60);
+                const secs = remaining % 60;
+                display.textContent = `${mins}:${secs.toString().padStart(2, '0')}`;
+
+                if (remaining <= 10) {
+                    display.classList.add('warning');
+                } else {
+                    display.classList.remove('warning');
+                }
+
+                remaining--;
+
+                if (remaining < 0) {
+                    clearInterval(timerInterval);
+                    display.textContent = '⏰ ZEIT!';
+                    setTimeout(() => {
+                        display.textContent = '--:--';
+                        display.classList.remove('warning');
+                    }, 2000);
+                }
+            }, 1000);
+        }
+
+        // Points
+        function givePoints(player) {
+            const points = parseInt(document.getElementById(`points${player}`).value);
+            const playerData = player === 1 ? currentPlayer1 : currentPlayer2;
+
+            if (!playerData) {
+                alert('Kein Spieler ausgewählt!');
+                return;
+            }
+
+            const team = teams[playerData.team];
+            let participant = team.participants.find(p => p.name === playerData.name && p.level === playerData.level);
+            
+            if (participant) {
+                participant.points = (participant.points || 0) + points;
+            }
+
+            showScreen('resultScreen');
+            document.getElementById('result1Avatar').textContent = currentPlayer1.teamIcon;
+            document.getElementById('result1Name').textContent = currentPlayer1.name;
+            document.getElementById('result1Points').textContent = 
+                player === 1 ? `${points} Punkte ${levelIcons[currentPlayer1.level]}` : `0 Punkte ${levelIcons[currentPlayer1.level]}`;
+
+            document.getElementById('result2Avatar').textContent = currentPlayer2.teamIcon;
+            document.getElementById('result2Name').textContent = currentPlayer2.name;
+            document.getElementById('result2Points').textContent = 
+                player === 2 ? `${points} Punkte ${levelIcons[currentPlayer2.level]}` : `0 Punkte ${levelIcons[currentPlayer2.level]}`;
+        }
+
+        // Scoreboard
+        function showScoreboard() {
+            showScreen('scoreboardScreen');
+
+            Object.keys(teams).forEach(teamKey => {
+                const team = teams[teamKey];
+                const scoresContainer = document.getElementById(`scores${team.name}`);
+                const totalElement = document.getElementById(`total${team.name}`);
+
+                scoresContainer.innerHTML = '';
+                let total = 0;
+
+                team.participants.forEach(participant => {
+                    if (participant.points) {
+                        total += participant.points;
+                        const scoreDiv = document.createElement('div');
+                        scoreDiv.className = 'participant-score';
+                        scoreDiv.innerHTML = `
+                            <span class="participant-score-name">${levelIcons[participant.level]} ${participant.name}</span>
+                            <span class="participant-score-points">${participant.points}</span>
+                        `;
+                        scoresContainer.appendChild(scoreDiv);
+                    }
+                });
+
+                totalElement.textContent = total;
+            });
+        }
+
+        // Navigation
+        function showScreen(screenId) {
+            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+            document.getElementById(screenId).classList.add('active');
+        }
+
+        function resetAll() {
+            if (confirm('Wirklich alles zurücksetzen?')) {
+                Object.keys(teams).forEach(team => {
+                    teams[team].participants = [];
+                    const container = document.getElementById(`participants-${team}`);
+                    container.innerHTML = '';
+                    for (let i = 0; i < 5; i++) {
+                        addParticipantInput(team);
+                    }
+                });
+                currentPlayer1 = null;
+                currentPlayer2 = null;
+                clearInterval(timerInterval);
+                showScreen('setupScreen');
+            }
+        }
+    </script>
+</body>
+</html>

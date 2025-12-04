@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bewertungsbögen & Redemittel - Deutsch im Dialog</title>
+    <style>
+        @media print {
+            .no-print {
+                display: none;
+            }
+            body {
+                margin: 0;
+                padding: 0;
+            }
+            .page {
+                page-break-after: always;
+            }
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Calibri, 'Segoe UI', Tahoma, sans-serif;
+            background: #f0f0f0;
+            padding: 20px;
+        }
+
+        .print-info {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .print-info h1 {
+            color: #667eea;
+            margin-bottom: 15px;
+        }
+
+        .print-button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.1em;
+            border-radius: 10px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+
+        .page {
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .page-title {
+            color: #667eea;
+            font-size: 2em;
+            margin-bottom: 30px;
+            text-align: center;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 15px;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 8px;
+            font-size: 1.1em;
+        }
+
+        .form-group input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 1em;
+        }
+
+        .rating-section {
+            margin: 30px 0;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+
+        .rating-section h3 {
+            color: #667eea;
+            margin-bottom: 20px;
+        }
+
+        .rating-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px dashed #ddd;
+        }
+
+        .rating-row:last-child {
+            border-bottom: none;
+        }
+
+        .rating-label {
+            font-size: 1.1em;
+            color: #333;
+        }
+
+        .rating-boxes {
+            display: flex;
+            gap: 15px;
+        }
+
+        .rating-box {
+            width: 40px;
+            height: 40px;
+            border: 2px solid #667eea;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        .comments-box {
+            margin-top: 30px;
+        }
+
+        .comments-box label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #667eea;
+        }
+
+        .comments-box textarea {
+            width: 100%;
+            min-height: 100px;
+            padding: 15px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-family: Calibri, Arial, sans-serif;
+            font-size: 1em;
+        }
+
+        .redemittel-section {
+            margin: 20px 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            border-radius: 10px;
+            border-left: 5px solid #667eea;
+        }
+
+        .redemittel-section h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+
+        .redemittel-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .redemittel-list li {
+            padding: 8px 0;
+            color: #333;
+            font-size: 1.05em;
+            line-height: 1.6;
+        }
+
+        .redemittel-list li:before {
+            content: "💬 ";
+            margin-right: 8px;
+        }
+
+        .example-box {
+            background: #fff3cd;
+            border-left: 5px solid #ffc107;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+
+        .example-box strong {
+            color: #856404;
+        }
+
+        @media print {
+            .page {
+                box-shadow: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="print-info no-print">
+        <h1>📝 Bewertungsbögen & Redemittel</h1>
+        <p><strong>Inhalt:</strong></p>
+        <ul style="margin: 10px 0 10px 30px; line-height: 1.8;">
+            <li>Bewertungsbogen für Schüler (Peer-Bewertung)</li>
+            <li>Bewertungsbogen für Lehrer</li>
+            <li>Redemittel-Listen für Dialoge (A2-B1)</li>
+        </ul>
+        <p><strong>Verwendung:</strong> Kopieren und an Schüler verteilen</p>
+        <button class="print-button" onclick="window.print()">🖨️ Jetzt drucken</button>
+    </div>
+
+    <!-- Bewertungsbogen für Schüler -->
+    <div class="page">
+        <h2 class="page-title">⭐ Bewertungsbogen für Schüler (Peer-Bewertung)</h2>
+        
+        <div style="display: grid; grid-template-columns: 2fr 2fr 1fr; gap: 15px; margin-bottom: 20px;">
+            <div class="form-group" style="margin-bottom: 0;">
+                <label>Team-Name:</label>
+                <input type="text" placeholder="z.B. Expedition Mond">
+            </div>
+            <div class="form-group" style="margin-bottom: 0;">
+                <label>Situation:</label>
+                <input type="text" placeholder="z.B. Ausflug planen">
+            </div>
+            <div class="form-group" style="margin-bottom: 0;">
+                <label>Datum:</label>
+                <input type="text">
+            </div>
+        </div>
+
+        <div class="rating-section" style="margin: 15px 0; padding: 15px;">
+            <h3 style="margin-bottom: 15px;">Bewertung: 1 Stern ⭐ = schlecht | 3 Sterne ⭐⭐⭐ = sehr gut</h3>
+            
+            <div class="rating-row" style="padding: 10px 0;">
+                <span class="rating-label">Flüssigkeit (ohne Pausen)</span>
+                <div class="rating-boxes">
+                    <div class="rating-box">⭐</div>
+                    <div class="rating-box">⭐⭐</div>
+                    <div class="rating-box">⭐⭐⭐</div>
+                </div>
+            </div>
+
+            <div class="rating-row" style="padding: 10px 0;">
+                <span class="rating-label">Wortschatz (gute Wörter)</span>
+                <div class="rating-boxes">
+                    <div class="rating-box">⭐</div>
+                    <div class="rating-box">⭐⭐</div>
+                    <div class="rating-box">⭐⭐⭐</div>
+                </div>
+            </div>
+
+            <div class="rating-row" style="padding: 10px 0;">
+                <span class="rating-label">Grammatik (richtig)</span>
+                <div class="rating-boxes">
+                    <div class="rating-box">⭐</div>
+                    <div class="rating-box">⭐⭐</div>
+                    <div class="rating-box">⭐⭐⭐</div>
+                </div>
+            </div>
+
+            <div class="rating-row" style="padding: 10px 0;">
+                <span class="rating-label">Kreativität (Ideen)</span>
+                <div class="rating-boxes">
+                    <div class="rating-box">⭐</div>
+                    <div class="rating-box">⭐⭐</div>
+                    <div class="rating-box">⭐⭐⭐</div>
+                </div>
+            </div>
+
+            <div class="rating-row" style="padding: 10px 0;">
+                <span class="rating-label">Zusammenarbeit</span>
+                <div class="rating-boxes">
+                    <div class="rating-box">⭐</div>
+                    <div class="rating-box">⭐⭐</div>
+                    <div class="rating-box">⭐⭐⭐</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="comments-box">
+            <label>Was war besonders gut? 👍 (Schreibe mindestens 3 Sätze!)</label>
+            <textarea style="min-height: 180px; font-size: 1.1em; line-height: 1.6;"></textarea>
+        </div>
+
+        <div class="comments-box">
+            <label>Was kann man noch besser machen? 💡 (Schreibe mindestens 2 Vorschläge!)</label>
+            <textarea style="min-height: 180px; font-size: 1.1em; line-height: 1.6;"></textarea>
+        </div>
+    </div>
+
+    <!-- Bewertungsbogen für Lehrer -->
+    <div class="page">
+        <h2 class="page-title">📋 Bewertungsbogen für Lehrer</h2>
+        
+        <div class="form-group">
+            <label>Team / Teilnehmer:</label>
+            <input type="text">
+        </div>
+
+        <div class="form-group">
+            <label>Spielmodus:</label>
+            <input type="text" placeholder="z.B. Situationsbattle, Mystery-Box">
+        </div>
+
+        <div class="form-group">
+            <label>Situation / Aufgabe:</label>
+            <input type="text">
+        </div>
+
+        <div class="form-group">
+            <label>Datum:</label>
+            <input type="text">
+        </div>
+
+        <div class="rating-section">
+            <h3>Bewertungskriterien (1-5 Punkte)</h3>
+            
+            <div class="rating-row">
+                <span class="rating-label">Aufgabenerfüllung (Situation vollständig bearbeitet)</span>
+                <div class="rating-boxes">
+                    <div class="rating-box">1</div>
+                    <div class="rating-box">2</div>
+                    <div class="rating-box">3</div>
+                    <div class="rating-box">4</div>
+                    <div class="rating-box">5</div>
+                </div>
+            </div>
+
+            <div class="rating-row">
+                <span class="rating-label">Flüssigkeit & Tempo</span>
+                <div class="rating-boxes">
+                    <div class="rating-box">1</div>
+                    <div class="rating-box">2</div>
+                    <div class="rating-box">3</div>
+                    <div class="rating-box">4</div>
+                    <div class="rating-box">5</div>
+                </div>
+            </div>
+
+            <div class="rating-row">
+                <span class="rating-label">Wortschatz (A2-B1 angemessen)</span>
+                <div class="rating-boxes">
+                    <div class="rating-box">1</div>
+                    <div class="rating-box">2</div>
+                    <div class="rating-box">3</div>
+                    <div class="rating-box">4</div>
+                    <div class="rating-box">5</div>
+                </div>
+            </div>
+
+            <div class="rating-row">
+                <span class="rating-label">Grammatik & Strukturen</span>
+                <div class="rating-boxes">
+                    <div class="rating-box">1</div>
+                    <div class="rating-box">2</div>
+                    <div class="rating-box">3</div>
+                    <div class="rating-box">4</div>
+                    <div class="rating-box">5</div>
+                </div>
+            </div>
+
+            <div class="rating-row">
+                <span class="rating-label">Aussprache & Verständlichkeit</span>
+                <div class="rating-boxes">
+                    <div class="rating-box">1</div>
+                    <div class="rating-box">2</div>
+                    <div class="rating-box">3</div>
+                    <div class="rating-box">4</div>
+                    <div class="rating-box">5</div>
+                </div>
+            </div>
+
+            <div class="rating-row">
+                <span class="rating-label">Interaktion & Kommunikation</span>
+                <div class="rating-boxes">
+                    <div class="rating-box">1</div>
+                    <div class="rating-box">2</div>
+                    <div class="rating-box">3</div>
+                    <div class="rating-box">4</div>
+                    <div class="rating-box">5</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="comments-box">
+            <label>Stärken:</label>
+            <textarea></textarea>
+        </div>
+
+        <div class="comments-box">
+            <label>Entwicklungspotenzial:</label>
+            <textarea></textarea>
+        </div>
+
+        <div class="form-group" style="margin-top: 30px;">
+            <label>Gesamtpunktzahl: _____ / 30 Punkte</label>
+        </div>
+    </div>
+
+    <!-- Redemittel-Listen -->
+    <div class="page">
+        <h2 class="page-title">💬 Redemittel für Dialoge (A2-B1)</h2>
+
+        <div class="redemittel-section">
+            <h3>1️⃣ Einen Vorschlag machen</h3>
+            <ul class="redemittel-list">
+                <li>Ich schlage vor, dass wir...</li>
+                <li>Wie wäre es, wenn wir...?</li>
+                <li>Wir könnten...</li>
+                <li>Ich habe eine Idee: Wir...</li>
+                <li>Lass uns doch...</li>
+                <li>Was hältst du davon, wenn...?</li>
+            </ul>
+            <div class="example-box">
+                <strong>Beispiel:</strong> "Ich schlage vor, dass wir am Samstag einen Ausflug machen. Wie wäre es, wenn wir in den Zoo gehen?"
+            </div>
+        </div>
+
+        <div class="redemittel-section">
+            <h3>2️⃣ Zustimmen</h3>
+            <ul class="redemittel-list">
+                <li>Das ist eine gute Idee!</li>
+                <li>Ja, das finde ich auch gut.</li>
+                <li>Einverstanden!</li>
+                <li>Das passt mir gut.</li>
+                <li>Gerne! / Ja, gerne!</li>
+                <li>Das klingt super!</li>
+            </ul>
+        </div>
+
+        <div class="redemittel-section">
+            <h3>3️⃣ Ablehnen (höflich)</h3>
+            <ul class="redemittel-list">
+                <li>Ich bin nicht sicher, ob...</li>
+                <li>Das gefällt mir nicht so gut, weil...</li>
+                <li>Lieber nicht, denn...</li>
+                <li>Ich hätte lieber...</li>
+                <li>Das ist mir zu...</li>
+                <li>Hmm, ich weiß nicht...</li>
+            </ul>
+            <div class="example-box">
+                <strong>Beispiel:</strong> "Das gefällt mir nicht so gut, weil ich keine Zeit habe. Wie wäre es mit Sonntag?"
+            </div>
+        </div>
+
+        <div class="redemittel-section">
+            <h3>4️⃣ Einen Gegenvorschlag machen</h3>
+            <ul class="redemittel-list">
+                <li>Wie wäre es stattdessen mit...?</li>
+                <li>Ich würde lieber...</li>
+                <li>Wir könnten auch...</li>
+                <li>Oder wir machen...</li>
+                <li>Vielleicht ist ... besser?</li>
+            </ul>
+        </div>
+
+        <div class="redemittel-section">
+            <h3>5️⃣ Nach einer Meinung fragen</h3>
+            <ul class="redemittel-list">
+                <li>Was meinst du?</li>
+                <li>Was denkst du darüber?</li>
+                <li>Wie findest du das?</li>
+                <li>Bist du einverstanden?</li>
+                <li>Passt dir das?</li>
+            </ul>
+        </div>
+
+        <div class="redemittel-section">
+            <h3>6️⃣ Einen Kompromiss finden</h3>
+            <ul class="redemittel-list">
+                <li>Wir könnten einen Kompromiss machen...</li>
+                <li>Was ist, wenn wir beide...?</li>
+                <li>Treffen wir uns in der Mitte?</li>
+                <li>Dann machen wir zuerst ... und dann ...</li>
+                <li>OK, aber dann...</li>
+            </ul>
+            <div class="example-box">
+                <strong>Beispiel:</strong> "Wir könnten einen Kompromiss machen: Zuerst gehen wir ins Café und dann in den Park."
+            </div>
+        </div>
+
+        <div class="redemittel-section">
+            <h3>7️⃣ Ein Problem beschreiben</h3>
+            <ul class="redemittel-list">
+                <li>Das Problem ist, dass...</li>
+                <li>Leider habe ich...</li>
+                <li>Es gibt ein Problem: ...</li>
+                <li>Das ist schwierig, weil...</li>
+                <li>Ich kann nicht, weil...</li>
+            </ul>
+        </div>
+
+        <div class="redemittel-section">
+            <h3>8️⃣ Eine Lösung vorschlagen</h3>
+            <ul class="redemittel-list">
+                <li>Wir können das so lösen: ...</li>
+                <li>Eine Lösung wäre...</li>
+                <li>Dann machen wir einfach...</li>
+                <li>Kein Problem, wir...</li>
+                <li>Das schaffen wir, wenn wir...</li>
+            </ul>
+        </div>
+
+        <div class="redemittel-section">
+            <h3>9️⃣ Das Gespräch abschließen</h3>
+            <ul class="redemittel-list">
+                <li>Also, dann sind wir uns einig.</li>
+                <li>Super, dann machen wir das so!</li>
+                <li>Perfekt! Dann bis...</li>
+                <li>Gut, dann sehen wir uns...</li>
+                <li>Alles klar! Bis dann!</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Redemittel B1 Erweiterung -->
+    <div class="page">
+        <h2 class="page-title">💬 Redemittel B1 (Erweiterung)</h2>
+
+        <div class="redemittel-section">
+            <h3>🔟 Begründen & Argumentieren</h3>
+            <ul class="redemittel-list">
+                <li>Der Grund ist, dass...</li>
+                <li>Das liegt daran, dass...</li>
+                <li>Deshalb denke ich, dass...</li>
+                <li>Aus diesem Grund...</li>
+                <li>Einerseits ... andererseits...</li>
+                <li>Zwar ... aber...</li>
+            </ul>
+            <div class="example-box">
+                <strong>Beispiel:</strong> "Ich möchte lieber ins Museum gehen. Der Grund ist, dass ich mich für Kunst interessiere. Zwar ist das Wetter schön, aber wir können danach noch spazieren gehen."
+            </div>
+        </div>
+
+        <div class="redemittel-section">
+            <h3>1️⃣1️⃣ Bedingungen nennen</h3>
+            <ul class="redemittel-list">
+                <li>Wenn ..., dann ...</li>
+                <li>Falls ..., können wir ...</li>
+                <li>Nur wenn ..., dann ...</li>
+                <li>Unter der Bedingung, dass...</li>
+                <li>Vorausgesetzt, dass...</li>
+            </ul>
+            <div class="example-box">
+                <strong>Beispiel:</strong> "Wenn das Wetter gut ist, dann können wir picknicken. Falls es regnet, gehen wir ins Café."
+            </div>
+        </div>
+
+        <div class="redemittel-section">
+            <h3>1️⃣2️⃣ Vor- und Nachteile nennen</h3>
+            <ul class="redemittel-list">
+                <li>Ein Vorteil ist, dass...</li>
+                <li>Der Nachteil ist, dass...</li>
+                <li>Positiv ist, dass...</li>
+                <li>Negativ ist, dass...</li>
+                <li>Das Gute daran ist...</li>
+                <li>Das Problem dabei ist...</li>
+            </ul>
+        </div>
+
+        <div class="redemittel-section">
+            <h3>1️⃣3️⃣ Zweifel ausdrücken</h3>
+            <ul class="redemittel-list">
+                <li>Ich bin mir nicht sicher, ob...</li>
+                <li>Ich bezweifle, dass...</li>
+                <li>Das funktioniert vielleicht nicht, weil...</li>
+                <li>Ich habe Bedenken, dass...</li>
+                <li>Ob das klappt?</li>
+            </ul>
+        </div>
+
+        <div class="redemittel-section">
+            <h3>1️⃣4️⃣ Überzeugen</h3>
+            <ul class="redemittel-list">
+                <li>Glaub mir, das ist...</li>
+                <li>Ich bin überzeugt, dass...</li>
+                <li>Das lohnt sich wirklich, weil...</li>
+                <li>Vertrau mir, wir...</li>
+                <li>Das wird bestimmt gut, weil...</li>
+            </ul>
+        </div>
+
+        <div class="redemittel-section">
+            <h3>1️⃣5️⃣ Zeit & Organisation</h3>
+            <ul class="redemittel-list">
+                <li>Zuerst ... dann ... danach ...</li>
+                <li>Bevor wir ..., sollten wir ...</li>
+                <li>Nachdem wir ..., können wir ...</li>
+                <li>Während du ..., kann ich ...</li>
+                <li>Bis ... müssen wir ...</li>
+            </ul>
+            <div class="example-box">
+                <strong>Beispiel:</strong> "Zuerst kaufen wir ein, dann kochen wir zusammen. Während du den Salat machst, kann ich das Fleisch braten."
+            </div>
+        </div>
+    </div>
+</body>
+</html>

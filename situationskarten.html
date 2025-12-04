@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Situationskarten - Deutsch im Dialog</title>
+    <style>
+        @media print {
+            .no-print {
+                display: none;
+            }
+            body {
+                margin: 0;
+                padding: 0;
+            }
+            .card {
+                page-break-after: always;
+                page-break-inside: avoid;
+            }
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Calibri, 'Segoe UI', Tahoma, sans-serif;
+            background: #f0f0f0;
+            padding: 20px;
+        }
+
+        .print-info {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .print-info h1 {
+            color: #667eea;
+            margin-bottom: 15px;
+        }
+
+        .print-info p {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 10px;
+        }
+
+        .print-button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.1em;
+            border-radius: 10px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+
+        .print-button:hover {
+            transform: scale(1.05);
+        }
+
+        .cards-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .card {
+            background: white;
+            border: 3px solid #667eea;
+            border-radius: 15px;
+            padding: 30px;
+            height: 400px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            position: relative;
+        }
+
+        .card.a2 {
+            border-color: #4facfe;
+            background: linear-gradient(135deg, #ffffff 0%, #e3f2fd 100%);
+        }
+
+        .card.b1 {
+            border-color: #fa709a;
+            background: linear-gradient(135deg, #ffffff 0%, #ffe3e8 100%);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .card-number {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        .card-level {
+            background: #667eea;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: bold;
+        }
+
+        .card.a2 .card-level {
+            background: #4facfe;
+        }
+
+        .card.b1 .card-level {
+            background: #fa709a;
+        }
+
+        .card-icon {
+            font-size: 3em;
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .card-text {
+            font-size: 1.3em;
+            line-height: 1.6;
+            color: #333;
+            text-align: center;
+            flex-grow: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .card-footer {
+            text-align: center;
+            color: #999;
+            font-size: 0.9em;
+            margin-top: 20px;
+            border-top: 2px dashed #ddd;
+            padding-top: 15px;
+        }
+
+        @media print {
+            .cards-container {
+                display: block;
+            }
+
+            .card {
+                margin-bottom: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="print-info no-print">
+        <h1>📋 Situationskarten zum Ausdrucken</h1>
+        <p><strong>Inhalt:</strong> 30 Situationskarten (15 × A2-Niveau, 15 × B1-Niveau)</p>
+        <p><strong>Verwendung:</strong> Karten ausschneiden, mischen und für Sprechübungen verwenden</p>
+        <p><strong>Tipp:</strong> Auf dickerem Papier drucken und eventuell laminieren für längere Haltbarkeit</p>
+        <button class="print-button" onclick="window.print()">🖨️ Jetzt drucken</button>
+    </div>
+
+    <div class="cards-container">
+        <!-- A2 Karten -->
+        <div class="card a2">
+            <div class="card-header">
+                <span class="card-number">#1</span>
+                <span class="card-level">A2</span>
+            </div>
+            <div class="card-icon">🏞️</div>
+            <div class="card-text">
+                Ihr plant einen Ausflug in den Park. Wann geht ihr? Was nehmt ihr mit?
+            </div>
+            <div class="card-footer">Deutsch im Dialog · Sprechbattle Arena</div>
+        </div>
+
+        <div class="card a2">
+            <div class="card-header">
+                <span class="card-number">#2</span>
+                <span class="card-level">A2</span>
+            </div>
+            <div class="card-icon">🎂</div>
+            <div class="card-text">
+                Ihr organisiert eine Geburtstagsparty für einen Freund. Was macht ihr? Wen ladet ihr ein?
+            </div>
+            <div class="card-footer">Deutsch im Dialog · Sprechbattle Arena</div>
+        </div>
+
+        <div class="card a2">
+            <div class="card-header">
+                <span class="card-number">#3</span>
+                <span class="card-level">A2</span>
+            </div>
+            <div class="card-icon">🍳</div>
+            <div class="card-text">
+                Ihr möchtet zusammen kochen. Was kocht ihr? Wer kauft die Zutaten ein?
+            </div>
+            <div class="card-footer">Deutsch im Dialog · Sprechbattle Arena</div>
+        </div>
+
+        <div class="card a2">
+            <div class="card-header">
+                <span class="card-number">#4</span>
+                <span class="card-level">A2</span>
+            </div>
+            <div class="card-icon">🎬</div>
+            <div class="card-text">
+                Ihr plant einen Filmabend. Welchen Film schaut ihr? Wer bringt was mit?
+            </div>
+            <div class="card-footer">Deutsch im Dialog · Sprechbattle Arena</div>
+        </div>
+
+        <div class="card a2">
+            <div class="card-header">
+                <span class="card-number">#5</span>
+                <span class="card-level">A2</span>
+            </div>
+            <div class="card-icon">⚽</div>
+            <div class="card-text">
+                Ihr wollt zusammen Sport machen. Welcher Sport? Wann und wo trefft ihr euch?
+            </div>
+            <div class="card-footer">Deutsch im Dialog · Sprechbattle Arena</div>
+        </div>
+
+        <div class="card a2">
+            <div class="card-header">
+                <span class="card-number">#6</span>
+                <span class="card-level">A2</span>
+            </div>
+            <div class="card-icon">🧺</div>
+            <div class="card-text">
+                Ihr plant ein Picknick im Park. Was nehmt ihr mit? Wie ist das Wetter?
+            </div>
+            <div class="card-footer">Deutsch im Dialog · Sprechbattle Arena</div>
+        </div>
+
+        <div class="card a2">
+            <div class="card-header">
+                <span class="card-number">#7</span>
+                <span class="card-level">A2</span>
+            </div>
+            <div class="card-icon">🎁</div>
+            <div class="card-text">
+                Ihr möchtet ein Geschenk kaufen. Für wen? Was ist passend? Wie viel kostet es?
+            </div>
+            <div class="card-footer">Deutsch im Dialog · Sprechbattle Arena</div>
+        </div>
+
+        <div class="card a2">
+            <div class="card-header">
+                <span class="card-number">#8</span>
+                <span class="card-level">A2</span>
+            </div>
+            <div class="card-icon">🏙️</div>
+            <div class="card-text">
+                Ihr plant einen Städtetrip. Welche Stadt besucht ihr? Was wollt ihr sehen?
+            </div>
+            <div class="card-footer">Deutsch im Dialog · Sprechbattle Arena</div>
+        </div>
+
+        <div class="card a2">
+            <div class="card-header">
+                <span class="card-number">#9</span>
+                <span class="card-level">A2</span>
+            </div>
+            <div class="card-icon">🎲</div>
+            <div class="card-text">
+                Ihr organisiert einen Spieleabend. Welche Spiele spielt ihr? Wer kommt?
+            </div>
+            <div class="card-footer">Deutsch im Dialog · Sprechbattle Arena</div>
+        </div>
+
+        <div class="card a2">
+            <div class="card-header">
+                <span class="card-number">#10</span>
+                <span class="card-level">A2</span>
+            </div>
+            <div class="card-icon">🎭</div>
+            <div class="card-text">
+                Ihr wollt zusammen ins Theater oder ins Kino. Was schaut ihr? Wann?
+            </div>
+            <div class="card-footer">Deutsch im Dialog · Sprechbattle Arena</div>
+        </div>
+
+        <div class="card a2">
+            <div class="card-header">
+                <span class="card-number">#11</span>
+                <span class="card-level">A2</span>
+            </div>
+            <div class="card-icon">☕</div>
+            <div class="card-text">
+                Ihr möchtet zusammen in ein Café gehen. Welches? Was trinkt und esst ihr?
+            </div>
+            <div class="card-footer">Deutsch im Dialog · Sprechbattle Arena</div>
+        </div>
+
+        <div class="card a2">
+            <div class="card-header">
+                <span class="card-number">#12</span>
+                <span class="card-level">A2</span>
+            </div>
+            <div class="card-icon">🏊</div>
+            <div class="card-text">
+                Ihr wollt schwimmen gehen. Freibad oder Hallenbad? Wann geht ihr? Was braucht ihr?
+            </div>
+            <div class="card-footer">Deutsch im Dialog · Sprechbattle Arena</div>
+        </div>
+
+        <div class="card a2">
+            <div class="card-header">
+                <span class="card-number">#13</span>
+                <span class="card-level">A2</span>
+            </div>
+            <div class="card-icon">🛍️</div>
+            <div class="card-text">
+                Ihr geht zusammen einkaufen. Was kauft ihr? Wo geht ihr hin?
+            </div>
+            <div class="card-footer">Deutsch im Dialog · Sprechbattle Arena</div>
+        </div>
+
+        <div class="card a2">
+            <div class="card-header">
+                <span class="card-number">#14</span>
+                <span class="card-level">A2</span>
+            </div>
+            <div class="card-icon">🚴</div>
+            <div class="card-text">
+                Ihr plant eine Fahrradtour. Wohin fahrt ihr? Wie lange? Was nehmt ihr mit?
+            </div>
+            <div class="card-footer">Deutsch im Dialog · Sprechbattle Arena</div>
+        </div>
+
+        <div class="card a2">
+            <div class="card-header">
+                <span class="card-number">#15</span>
+                <span class="card-level">A2</span>
+            </div>
+            <div class="card-icon">📚</div>
+            <div class="card-text">
+                Ihr wollt zusammen lernen. Wann? Wo? Was lernt ihr?
+            </div>
+            <div class="card-footer">Deutsch im Dialog · Sprechbattle Arena</div>
+        </div>
+
+        <!-- B1 Karten -->
+        <div class="card b1">
+            <div class="card-header">
+                <span class="card-number">#16</span>
+                <span class="card-level">B1</span>
+            </div>
+            <div class="card-icon">💸</div>
+            <div class="card-text">
+                Ihr plant einen Ausflug, aber er kostet zu viel Geld. Wie löst ihr das Problem?
+            </div>
+            <div class="card-footer">Deutsch im Dialog · Sprechbattle Arena</div>
+        </div>
+
+        <div class="card b1">
+            <div class="card-header">
+                <span class="card-number">#17</span>
+                <span class="card-level">B1</span>
+            </div>
+            <div class="card-icon">🔊</div>
+            <div class="card-text">
+                Eure Party wird zu laut. Die Nachbarn beschweren sich. Was macht ihr jetzt?
+            </div>
+            <div class="card-footer">Deutsch im Dialog · Sprechbattle Arena</div>
+        </div>
+
+        <div class="card b1">
+            <div class="card-header">
+                <span class="card-number">#18</span>
+                <span class="card-level">B1</span>
+            </div>
+            <div class="card-icon">🍕</div>
+            <div class="card-text">
+                Ihr habt verschiedene Meinungen über das Essen. Wie findet ihr einen Kompromiss?
+            </div>
+            <div class="card-footer">Deutsch im Dialog · Sprechbattle Arena</div>
+        </div>
+
+        <div class="card b1">
+            <div class="card-header">
+                <span class="card-number">#19</span>
+                <span class="card-level">B1</span>
+            </div>
+            <div class="card-icon">🌧️</div>
+            <div class="card-text">
+                Das Wetter ist schlecht für euren Ausflug. Plant schnell um! Was macht ihr stattdessen?
+            </div>
+            <div class="card-footer">Deutsch im Dialog · Sprechbattle Arena</div>
+        </div>
+
+        <div class="card b1">
+            <div class="card-header">
+                <span class="card-number">#20</span>
+                <span class="card-level">B1</span>
+            </div>
+            <div class="card-icon">😔</div>
+            <div class="card-text">
+                Ein wichtiger Freund kann nicht zur Party kommen. Wie reagiert ihr? Was ändert ihr?
+            </div>
+            <div class="card-footer">Deutsch im Dialog · Sprechbattle Arena</div>
+        </div>
+
+        <div class="card b1">
+            <div class="card-header">
+                <span class="card-number">#21</span>
+                <span class="card-level">B1</span>
+            </div>
+            <div class="card-icon">✈️</div>
+            <div class="card-text">
+                Ihr plant eine Reise, aber euer Budget ist sehr klein. Wie macht ihr das trotzdem möglich?
+            </div>
+            <div class="card-footer">Deutsch im Dialog · Sprechbattle Arena</div>
+        </div>
+
+        <div class="card b1">
+            <div class="card-header">
+                <span class="card-number">#22</span>
+                <span class="card-level">B1</span>
+            </div>
+            <div class="card-icon">⏰</div>
+            <div class="card-text">
+                Ihr wollt einen Kurs zusammen machen. Problem: Ihr habt unterschiedliche Zeiten! Lösung?
+            </div>
+            <div class="card-footer">Deutsch im Dialog · Sprechbattle Arena</div>
+        </div>
+
+        <div class="card b1">
+            <div class="card-header">
+                <span class="card-number">#23</span>
+                <span class="card-level">B1</span>
+            </div>
+            <div class="card-icon">🚫</div>
+            <div class="card-text">
+                Euer Lieblingscafé hat plötzlich geschlossen. Wo geht ihr stattdessen hin? Plant neu!
+            </div>
+            <div class="card-footer">Deutsch im Dialog · Sprechbattle Arena</div>
+        </div>
+
+        <div class="card b1">
+            <div class="card-header">
+                <span class="card-number">#24</span>
+                <span class="card-level">B1</span>
+            </div>
+            <div class="card-icon">📦</div>
+            <div class="card-text">
+                Ihr wollt zusammen umziehen. Wie organisiert ihr das? Wer macht was?
+            </div>
+            <div class="card-footer">Deutsch im Dialog · Sprechbattle Arena</div>
+        </div>
+
+        <div class="card b1">
+            <div class="card-header">
+                <span class="card-number">#25</span>
+                <span class="card-level">B1</span>
+            </div>
+            <div class="card-icon">🏠</div>
+            <div class="card-text">
+                Ihr plant ein Fest, aber der Raum ist zu klein für alle Gäste. Neue Ideen?
+            </div>
+            <div class="card-footer">Deutsch im Dialog · Sprechbattle Arena</div>
+        </div>
+
+        <div class="card b1">
+            <div class="card-header">
+                <span class="card-number">#26</span>
+                <span class="card-level">B1</span>
+            </div>
+            <div class="card-icon">🚗</div>
+            <div class="card-text">
+                Ihr plant einen Roadtrip, aber nur eine Person hat ein Auto. Wie organisiert ihr Kosten und Fahren?
+            </div>
+            <div class="card-footer">Deutsch im Dialog · Sprechbattle Arena</div>
+        </div>
+
+        <div class="card b1">
+            <div class="card-header">
+                <span class="card-number">#27</span>
+                <span class="card-level">B1</span>
+            </div>
+            <div class="card-icon">🎓</div>
+            <div class="card-text">
+                Ihr wollt zusammen für eine Prüfung lernen. Aber: Ihr habt sehr unterschiedliches Niveau. Wie geht das?
+            </div>
+            <div class="card-footer">Deutsch im Dialog · Sprechbattle Arena</div>
+        </div>
+
+        <div class="card b1">
+            <div class="card-header">
+                <span class="card-number">#28</span>
+                <span class="card-level">B1</span>
+            </div>
+            <div class="card-icon">🎪</div>
+            <div class="card-text">
+                Ihr organisiert ein Fest für viele Menschen. Die Hälfte isst vegetarisch, die andere nicht. Plant das Essen!
+            </div>
+            <div class="card-footer">Deutsch im Dialog · Sprechbattle Arena</div>
+        </div>
+
+        <div class="card b1">
+            <div class="card-header">
+                <span class="card-number">#29</span>
+                <span class="card-level">B1</span>
+            </div>
+            <div class="card-icon">🏃</div>
+            <div class="card-text">
+                Ihr wollt zusammen an einem Marathon teilnehmen. Aber: Einer ist fit, der andere nicht. Wie trainiert ihr?
+            </div>
+            <div class="card-footer">Deutsch im Dialog · Sprechbattle Arena</div>
+        </div>
+
+        <div class="card b1">
+            <div class="card-header">
+                <span class="card-number">#30</span>
+                <span class="card-level">B1</span>
+            </div>
+            <div class="card-icon">🎨</div>
+            <div class="card-text">
+                Ihr plant einen kreativen Workshop (Malen, Musik, etc.). Aber: Ihr habt verschiedene Interessen. Kompromiss?
+            </div>
+            <div class="card-footer">Deutsch im Dialog · Sprechbattle Arena</div>
+        </div>
+    </div>
+</body>
+</html>

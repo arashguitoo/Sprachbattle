@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zertifikate - Deutsch im Dialog</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Calibri, 'Segoe UI', Tahoma, sans-serif;
+            background: #f0f0f0;
+            padding: 20px;
+        }
+
+        .print-info {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            max-width: 800px;
+            margin: 0 auto 30px auto;
+        }
+
+        .print-info h1 {
+            color: #667eea;
+            margin-bottom: 15px;
+        }
+
+        .print-button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.1em;
+            border-radius: 10px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+
+        .certificate {
+            width: 210mm;
+            height: 297mm;
+            background: white;
+            margin: 30px auto;
+            padding: 40mm;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+            position: relative;
+            page-break-after: always;
+            border: 15px solid;
+            border-image: linear-gradient(135deg, #667eea, #764ba2, #fa709a, #ffd89b) 1;
+        }
+
+        .certificate-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .certificate-title {
+            font-size: 3em;
+            color: #667eea;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .certificate-subtitle {
+            font-size: 1.5em;
+            color: #764ba2;
+            margin-bottom: 30px;
+        }
+
+        .certificate-body {
+            text-align: center;
+            margin: 50px 0;
+        }
+
+        .certificate-text {
+            font-size: 1.3em;
+            line-height: 2;
+            color: #333;
+        }
+
+        .certificate-name {
+            font-size: 2.5em;
+            color: #667eea;
+            font-weight: bold;
+            margin: 30px 0;
+            text-decoration: underline;
+            text-decoration-color: #764ba2;
+            text-decoration-thickness: 3px;
+        }
+
+        .certificate-achievement {
+            font-size: 1.8em;
+            color: #fa709a;
+            font-weight: bold;
+            margin: 30px 0;
+        }
+
+        .certificate-footer {
+            margin-top: 80px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+
+        .signature-line {
+            width: 40%;
+            border-top: 2px solid #333;
+            padding-top: 10px;
+            text-align: center;
+            color: #666;
+        }
+
+        .certificate-icon {
+            font-size: 5em;
+            margin: 20px 0;
+        }
+
+        .points-display {
+            background: linear-gradient(135deg, #ffd89b 0%, #ff9a56 100%);
+            color: white;
+            padding: 20px 40px;
+            border-radius: 15px;
+            display: inline-block;
+            font-size: 2em;
+            font-weight: bold;
+            margin: 20px 0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        @media print {
+            .print-info, .print-button {
+                display: none;
+            }
+            
+            body {
+                background: white;
+                padding: 0;
+            }
+
+            .certificate {
+                margin: 0;
+                box-shadow: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="print-info no-print">
+        <h1>🏆 Zertifikate für "Deutsch im Dialog"</h1>
+        <p><strong>Anleitung:</strong></p>
+        <ul style="margin: 10px 0 10px 30px; line-height: 1.8;">
+            <li>Namen der Teilnehmer eintragen (vor dem Drucken im Browser-Inspektor oder per Hand)</li>
+            <li>Team-Namen und Punkte anpassen</li>
+            <li>Auf dickem Papier (160-200g) drucken für festlichen Charakter</li>
+            <li>Optional: In Rahmen stecken für besondere Würdigung</li>
+        </ul>
+        <button class="print-button" onclick="window.print()">🖨️ Zertifikate drucken</button>
+    </div>
+
+    <!-- Zertifikat 1: Sieger -->
+    <div class="certificate">
+        <div class="certificate-header">
+            <div class="certificate-icon">🏆</div>
+            <div class="certificate-title">ZERTIFIKAT</div>
+            <div class="certificate-subtitle">Deutsch im Dialog - Sprechbattle Arena</div>
+        </div>
+
+        <div class="certificate-body">
+            <p class="certificate-text">
+                Hiermit wird bestätigt, dass
+            </p>
+
+            <div class="certificate-name">
+                [NAME EINTRAGEN]
+            </div>
+
+            <p class="certificate-text">
+                als Mitglied der
+            </p>
+
+            <div class="certificate-achievement">
+                [TEAM-NAME] 🌙☀️⭐🌊
+            </div>
+
+            <p class="certificate-text">
+                erfolgreich am Sprechtraining teilgenommen hat und<br>
+                mit herausragenden Leistungen
+            </p>
+
+            <div class="points-display">
+                [PUNKTE] Punkte
+            </div>
+
+            <p class="certificate-text">
+                den <strong>1. PLATZ</strong> erreicht hat!
+            </p>
+
+            <p class="certificate-text" style="margin-top: 30px; font-size: 1.1em;">
+                Herzlichen Glückwunsch! 🎉
+            </p>
+        </div>
+
+        <div class="certificate-footer">
+            <div class="signature-line">
+                Kiel, den __________
+                <br>Datum
+            </div>
+            <div class="signature-line">
+                ______________________
+                <br>Kursleitung
+            </div>
+        </div>
+    </div>
+
+    <!-- Zertifikat 2: Teilnahme -->
+    <div class="certificate">
+        <div class="certificate-header">
+            <div class="certificate-icon">⭐</div>
+            <div class="certificate-title">ZERTIFIKAT</div>
+            <div class="certificate-subtitle">Deutsch im Dialog - Sprechbattle Arena</div>
+        </div>
+
+        <div class="certificate-body">
+            <p class="certificate-text">
+                Hiermit wird bestätigt, dass
+            </p>
+
+            <div class="certificate-name">
+                [NAME EINTRAGEN]
+            </div>
+
+            <p class="certificate-text">
+                als Mitglied der
+            </p>
+
+            <div class="certificate-achievement">
+                [TEAM-NAME] 🌙☀️⭐🌊
+            </div>
+
+            <p class="certificate-text">
+                erfolgreich am 6-wöchigen Sprechtraining<br>
+                „Deutsch im Dialog" teilgenommen hat.
+            </p>
+
+            <div class="points-display">
+                [PUNKTE] Punkte
+            </div>
+
+            <p class="certificate-text" style="margin-top: 30px;">
+                Trainierte Kompetenzen:
+            </p>
+            <p class="certificate-text" style="font-size: 1.1em; margin-top: 15px;">
+                ✓ Flüssiges Sprechen<br>
+                ✓ Spontane Kommunikation<br>
+                ✓ Interaktion & Dialog<br>
+                ✓ Prüfungsvorbereitung
+            </p>
+        </div>
+
+        <div class="certificate-footer">
+            <div class="signature-line">
+                Kiel, den __________
+                <br>Datum
+            </div>
+            <div class="signature-line">
+                ______________________
+                <br>Kursleitung
+            </div>
+        </div>
+    </div>
+
+    <!-- Zertifikat 3: Beste Verbesserung -->
+    <div class="certificate">
+        <div class="certificate-header">
+            <div class="certificate-icon">🚀</div>
+            <div class="certificate-title">SONDERPREIS</div>
+            <div class="certificate-subtitle">Deutsch im Dialog - Sprechbattle Arena</div>
+        </div>
+
+        <div class="certificate-body">
+            <p class="certificate-text">
+                Hiermit wird bestätigt, dass
+            </p>
+
+            <div class="certificate-name">
+                [NAME EINTRAGEN]
+            </div>
+
+            <p class="certificate-text">
+                als Mitglied der
+            </p>
+
+            <div class="certificate-achievement">
+                [TEAM-NAME] 🌙☀️⭐🌊
+            </div>
+
+            <p class="certificate-text">
+                die <strong>größte Verbesserung</strong> während des<br>
+                Sprechtrainings gezeigt hat!
+            </p>
+
+            <div class="points-display" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">
+                Beste Entwicklung! 📈
+            </div>
+
+            <p class="certificate-text" style="margin-top: 30px; font-size: 1.2em;">
+                Von Woche 1 bis Woche 6:<br>
+                <strong style="color: #4facfe;">Fantastischer Fortschritt!</strong>
+            </p>
+
+            <p class="certificate-text" style="margin-top: 20px;">
+                Weiter so! 💪
+            </p>
+        </div>
+
+        <div class="certificate-footer">
+            <div class="signature-line">
+                Kiel, den __________
+                <br>Datum
+            </div>
+            <div class="signature-line">
+                ______________________
+                <br>Kursleitung
+            </div>
+        </div>
+    </div>
+
+    <!-- Zertifikat 4: Kreativster Dialog -->
+    <div class="certificate">
+        <div class="certificate-header">
+            <div class="certificate-icon">🎨</div>
+            <div class="certificate-title">SONDERPREIS</div>
+            <div class="certificate-subtitle">Deutsch im Dialog - Sprechbattle Arena</div>
+        </div>
+
+        <div class="certificate-body">
+            <p class="certificate-text">
+                Hiermit wird bestätigt, dass
+            </p>
+
+            <div class="certificate-name">
+                [NAME EINTRAGEN]
+            </div>
+
+            <p class="certificate-text">
+                als Mitglied der
+            </p>
+
+            <div class="certificate-achievement">
+                [TEAM-NAME] 🌙☀️⭐🌊
+            </div>
+
+            <p class="certificate-text">
+                den <strong>kreativsten Dialog</strong> im<br>
+                Sprechtraining präsentiert hat!
+            </p>
+
+            <div class="points-display" style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);">
+                Beste Ideen! 💡
+            </div>
+
+            <p class="certificate-text" style="margin-top: 30px; font-size: 1.2em;">
+                Ausgezeichnet für:<br>
+                <strong style="color: #fa709a;">Originelle Lösungen &<br>Kreative Kommunikation</strong>
+            </p>
+
+            <p class="certificate-text" style="margin-top: 20px;">
+                Fantastisch! 🌟
+            </p>
+        </div>
+
+        <div class="certificate-footer">
+            <div class="signature-line">
+                Kiel, den __________
+                <br>Datum
+            </div>
+            <div class="signature-line">
+                ______________________
+                <br>Kursleitung
+            </div>
+        </div>
+    </div>
+</body>
+</html>

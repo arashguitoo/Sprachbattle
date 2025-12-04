@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anleitung - Sprechbattle Arena</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Calibri, 'Segoe UI', Tahoma, sans-serif;
+            line-height: 1.6;
+            padding: 40px;
+            background: #f5f5f5;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            color: #667eea;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        h2 {
+            color: #667eea;
+            font-size: 1.8em;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #667eea;
+        }
+
+        h3 {
+            color: #764ba2;
+            font-size: 1.3em;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+
+        p {
+            margin-bottom: 15px;
+        }
+
+        .box {
+            background: #f0f4ff;
+            border-left: 5px solid #667eea;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+
+        .warning {
+            background: #fff3e0;
+            border-left: 5px solid #ff9800;
+        }
+
+        .success {
+            background: #e8f5e9;
+            border-left: 5px solid #4caf50;
+        }
+
+        .step {
+            background: #f8f9fa;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border-left: 4px solid #667eea;
+        }
+
+        .step strong {
+            color: #667eea;
+            font-size: 1.1em;
+        }
+
+        ul {
+            margin: 15px 0;
+            padding-left: 30px;
+        }
+
+        li {
+            margin: 8px 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        table th {
+            background: #667eea;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+
+        table td {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        table tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+
+        code {
+            background: #f4f4f4;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+        }
+
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+            .container {
+                box-shadow: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎤 Sprechbattle Arena</h1>
+        <p style="font-size: 1.2em; color: #666; margin-bottom: 30px;">
+            Kompakte Nutzungsanleitung für Lehrer
+        </p>
+
+        <div class="box success">
+            <strong>⚡ In 3 Schritten starten:</strong>
+            <ol style="margin-top: 10px;">
+                <li>Öffne <code>index.html</code> im Browser (F11 für Vollbild)</li>
+                <li>Namen eingeben + Levels wählen (🔴🟢🟣)</li>
+                <li>Roulette drehen → Dialog starten → Punkte vergeben</li>
+            </ol>
+        </div>
+
+        <h2>1️⃣ Vorbereitung (einmalig)</h2>
+
+        <div class="step">
+            <strong>Screen 1: Setup</strong><br>
+            Trage die Namen deiner Teilnehmer ein:
+            <ul>
+                <li>Name eingeben</li>
+                <li>Farbe klicken: 🔴 Rubin (einfach) / 🟢 Smaragd (mittel) / 🟣 Amethyst (schwer)</li>
+                <li>Button "+ Teilnehmer" für mehr Zeilen</li>
+            </ul>
+        </div>
+
+        <div class="box">
+            <strong>💡 Tipp:</strong> Du kannst die Namen auch während des Unterrichts nachtragen. Die Arena speichert sie im Browser (bis zum "Neu starten").
+        </div>
+
+        <h2>2️⃣ Jede Runde (5-10 Min)</h2>
+
+        <h3>Schritt 1: Spielmodus wählen</h3>
+        <table>
+            <tr>
+                <th>Modus</th>
+                <th>Was passiert?</th>
+                <th>Empfehlung</th>
+            </tr>
+            <tr>
+                <td>🎭 <strong>Klassisch</strong></td>
+                <td>Normaler Dialog: Zusammen planen</td>
+                <td>Gut für Anfang & Prüfung</td>
+            </tr>
+            <tr>
+                <td>🎁 <strong>Mystery Box</strong></td>
+                <td>3 geheime Wörter einbauen</td>
+                <td>Für Wortschatz & Kreativität</td>
+            </tr>
+            <tr>
+                <td>⚡ <strong>Schnellfeuer</strong></td>
+                <td>Schnelle Reaktionen, Tempo!</td>
+                <td>Für Aktivierung & Motivation</td>
+            </tr>
+            <tr>
+                <td>🔥 <strong>Eskalation</strong></td>
+                <td>Probleme lösen, wird schwerer</td>
+                <td>Für B1 & Herausforderung</td>
+            </tr>
+        </table>
+
+        <h3>Schritt 2: Level wählen</h3>
+        <p>Klicke auf ein Level:</p>
+        <ul>
+            <li>🔴 <strong>Rubin</strong> - Einfache Situationen (A2)</li>
+            <li>🟢 <strong>Smaragd</strong> - Mittelschwer (A2-B1)</li>
+            <li>🟣 <strong>Amethyst</strong> - Schwer mit Problemen (B1)</li>
+        </ul>
+
+        <div class="box warning">
+            <strong>⚠️ Wichtig:</strong> Das System wählt nur Spieler aus dem gewählten Level! Rot gegen Rot, Grün gegen Grün, Lila gegen Lila.
+        </div>
+
+        <h3>Schritt 3: Roulette dreht sich</h3>
+        <div class="step">
+            <strong>Automatisch:</strong>
+            <ul>
+                <li>✅ System wählt 2 Spieler (zufällig aus dem Level)</li>
+                <li>✅ System wählt passende Situation (für Modus + Level)</li>
+                <li>✅ Bei Mystery Box: 3 geheime Wörter werden angezeigt</li>
+            </ul>
+        </div>
+
+        <h3>Schritt 4: Dialog starten</h3>
+        <p>Control Panel unten:</p>
+        <ul>
+            <li><strong>▶️ Dialog starten</strong> → Große Ansicht öffnet sich</li>
+            <li><strong>⏱️ Timer 2/3 Min</strong> → Countdown läuft auf der Leinwand</li>
+            <li>Die Spieler führen ihren Dialog</li>
+        </ul>
+
+        <h3>Schritt 5: Punkte vergeben</h3>
+        <div class="step">
+            <strong>Control Panel:</strong>
+            <ul>
+                <li>Spieler 1: [10] ✅ → Gibt 10 Punkte</li>
+                <li>Spieler 2: [15] ✅ → Gibt 15 Punkte</li>
+                <li>Punkte gehen automatisch an die Teams!</li>
+            </ul>
+        </div>
+
+        <h3>Schritt 6: Nächste Runde</h3>
+        <ul>
+            <li><strong>🎰 Zum Roulette</strong> → Zurück zur Auswahl</li>
+            <li>Neuen Modus/Level wählen → Roulette drehen</li>
+            <li>Wiederholen! 🔄</li>
+        </ul>
+
+        <h2>3️⃣ Scoreboard anzeigen</h2>
+        <div class="step">
+            <strong>📊 Punktestand</strong> → Zeigt alle 4 Teams mit Gesamtpunkten<br>
+            Darunter: Jede Person mit ihren individuellen Punkten + Level-Icon
+        </div>
+
+        <h2>4️⃣ Control Panel (immer unten)</h2>
+        <table>
+            <tr>
+                <th>Button</th>
+                <th>Funktion</th>
+            </tr>
+            <tr>
+                <td>🎰 Zum Roulette</td>
+                <td>Zurück zur Modus/Level-Auswahl</td>
+            </tr>
+            <tr>
+                <td>▶️ Dialog starten</td>
+                <td>Öffnet Dialog-Screen mit Timer</td>
+            </tr>
+            <tr>
+                <td>⏱️ 2 Min / 3 Min</td>
+                <td>Startet Timer (wähle je nach Niveau)</td>
+            </tr>
+            <tr>
+                <td>✅ Spieler 1/2</td>
+                <td>Vergibt Punkte (Zahl eingeben, dann ✅)</td>
+            </tr>
+            <tr>
+                <td>📊 Punktestand</td>
+                <td>Zeigt Scoreboard mit allen Teams</td>
+            </tr>
+            <tr>
+                <td>🔄 Neu starten</td>
+                <td>Reset (alle Punkte weg!)</td>
+            </tr>
+        </table>
+
+        <h2>5️⃣ Tipps & Tricks</h2>
+
+        <div class="success box">
+            <h3>✅ Für erfolgreiche Dialoge:</h3>
+            <ul>
+                <li><strong>Vorbereitungszeit geben:</strong> 2 Min vor dem Dialog</li>
+                <li><strong>Redemittel-Listen verteilen:</strong> Siehe <code>bewertung-redemittel.html</code></li>
+                <li><strong>Nicht während Dialog korrigieren:</strong> Erst danach Feedback!</li>
+                <li><strong>Peer-Bewertung nutzen:</strong> Andere Teams bewerten mit</li>
+            </ul>
+        </div>
+
+        <div class="box">
+            <h3>💡 Variation im Unterricht:</h3>
+            <ul>
+                <li><strong>Woche 1-2:</strong> Nur 🔴 Rubin + 🎭 Klassisch (Vertrautheit)</li>
+                <li><strong>Woche 3-4:</strong> 🔴🟢 + 🎭🎁 (Mehr Abwechslung)</li>
+                <li><strong>Woche 5-6:</strong> Alle Modi + 🟣 Amethyst (Prüfungsvorbereitung)</li>
+            </ul>
+        </div>
+
+        <div class="warning box">
+            <h3>⚠️ Häufige Fehler vermeiden:</h3>
+            <ul>
+                <li><strong>Vergessen Level zu wählen:</strong> Ohne Farbe bei Namen → Wird nicht im Roulette gefunden!</li>
+                <li><strong>Falsches Level:</strong> Zu schwer = Frust, zu einfach = Langeweile</li>
+                <li><strong>Zu viel Korrektur:</strong> Kommunikation > Perfektion!</li>
+                <li><strong>Zu lange Dialoge:</strong> 2-3 Min reichen! Mehr = ermüdend</li>
+            </ul>
+        </div>
+
+        <h2>6️⃣ Technische Hinweise</h2>
+
+        <div class="step">
+            <strong>Für Beamer-Präsentation:</strong>
+            <ul>
+                <li>F11 drücken = Vollbild-Modus</li>
+                <li>Control Panel bleibt unten sichtbar (nur du siehst es)</li>
+                <li>Teilnehmer sehen nur den großen Screen oben</li>
+            </ul>
+        </div>
+
+        <div class="step">
+            <strong>Browser-Kompatibilität:</strong>
+            <ul>
+                <li>✅ Chrome / Edge (empfohlen)</li>
+                <li>✅ Firefox</li>
+                <li>✅ Safari</li>
+                <li>❌ Internet Explorer (veraltet)</li>
+            </ul>
+        </div>
+
+        <div class="step">
+            <strong>Offline nutzbar:</strong>
+            <ul>
+                <li>Kein Internet nötig!</li>
+                <li>Einfach HTML-Datei öffnen</li>
+                <li>Alles läuft lokal im Browser</li>
+            </ul>
+        </div>
+
+        <h2>7️⃣ Bewertung</h2>
+
+        <p>Öffne <code>bewertung-redemittel.html</code> und drucke aus:</p>
+        <ul>
+            <li><strong>Bewertungsbogen für Schüler:</strong> Peer-Bewertung (andere Teams bewerten)</li>
+            <li><strong>Bewertungsbogen für Lehrer:</strong> Deine Bewertung (5-Punkte-Skala)</li>
+            <li><strong>Redemittel-Listen:</strong> Zum Verteilen an Teilnehmer</li>
+        </ul>
+
+        <div class="box">
+            <strong>💡 Peer-Bewertung einsetzen:</strong><br>
+            Während Dialog läuft → 2-3 Teams füllen Bewertungsbogen aus → Danach besprechen
+        </div>
+
+        <h2>8️⃣ Häufige Fragen</h2>
+
+        <h3>❓ Kann ich Namen später ändern?</h3>
+        <p><strong>Ja!</strong> Gehe zurück zum Setup-Screen und ändere die Namen. Aber: Bisherige Punkte bleiben bei den alten Namen!</p>
+
+        <h3>❓ Was wenn zu wenig Teilnehmer in einem Level?</h3>
+        <p><strong>System meldet:</strong> "Bitte mindestens 2 Teilnehmer im [Level]!" → Wähle anderes Level oder trage mehr Namen ein.</p>
+
+        <h3>❓ Können Spieler aus verschiedenen Teams gegeneinander?</h3>
+        <p><strong>Ja!</strong> Das System wählt zufällig. Es kann sein: Mond vs. Sonne ODER Mond vs. Mond. Hauptsache gleiches Level!</p>
+
+        <h3>❓ Gehen Punkte verloren wenn ich Browser schließe?</h3>
+        <p><strong>Ja!</strong> Keine permanente Speicherung. Am Ende der Stunde: Scoreboard fotografieren oder Screenshot machen!</p>
+
+        <h3>❓ Kann ich die Situationen anpassen?</h3>
+        <p><strong>Fortgeschritten:</strong> Ja, im Code änderbar. Öffne HTML-Datei mit Editor und suche nach "situations = {" - dort kannst du eigene Situationen eintragen.</p>
+
+        <h2>9️⃣ Zusammenfassung</h2>
+
+        <div class="success box">
+            <h3>🎯 Der perfekte Ablauf:</h3>
+            <ol>
+                <li><strong>Vorbereitung:</strong> Namen + Levels eingeben (1× am Anfang)</li>
+                <li><strong>Runde starten:</strong> Modus wählen → Level wählen → Roulette</li>
+                <li><strong>Dialog:</strong> 2 Min Vorbereitung → Dialog führen → Timer läuft</li>
+                <li><strong>Bewertung:</strong> Punkte vergeben (beide Spieler)</li>
+                <li><strong>Wiederholen:</strong> Zurück zu Roulette → Nächste Runde!</li>
+                <li><strong>Am Ende:</strong> Scoreboard zeigen → Sieger küren! 🏆</li>
+            </ol>
+        </div>
+
+        <div style="text-align: center; margin-top: 50px; padding: 30px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border-radius: 10px;">
+            <h2>🎉 Viel Erfolg!</h2>
+            <p style="font-size: 1.2em; margin-top: 10px;">Deine Teilnehmer werden die Arena lieben!</p>
+        </div>
+    </div>
+</body>
+</html>
