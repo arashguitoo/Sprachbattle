@@ -967,8 +967,8 @@
     <div class="control-panel">
         <button class="control-btn success" onclick="showScreen('rouletteScreen')">🎰 Zum Roulette</button>
         <button class="control-btn" onclick="startDialog()">▶️ Dialog starten</button>
-        <button class="control-btn" onclick="startTimer(120)">⏱️ 2 Min</button>
-        <button class="control-btn" onclick="startTimer(180)">⏱️ 3 Min</button>
+        <button class="control-btn success" onclick="startStopwatch()">⏱️ Timer starten</button>
+        <button class="control-btn danger" onclick="stopStopwatch()">⏹️ Stopp & Berechnen</button>
         
         <div class="points-input-group">
             <label>Spieler 1:</label>
@@ -1223,6 +1223,12 @@
             }
 
             showScreen('dialogScreen');
+            
+            // Reset Timer
+            clearInterval(timerInterval);
+            timerRunning = false;
+            document.getElementById('dialogTimer').textContent = '0:00';
+            document.getElementById('dialogTimer').classList.remove('warning');
 
             document.getElementById('player1Avatar').textContent = currentPlayer1.teamIcon;
             document.getElementById('player1Name').textContent = currentPlayer1.name;
@@ -1243,37 +1249,91 @@
             }
         }
 
-        // Timer
-        function startTimer(seconds) {
+        // Timer als STOPPUHR (zählt hoch)
+        let timerStartTime = 0;
+        let timerElapsed = 0;
+        let timerRunning = false;
+        
+        function startStopwatch() {
+            if (timerRunning) return; // Bereits gestartet
+            
             clearInterval(timerInterval);
-            let remaining = seconds;
+            timerStartTime = Date.now();
+            timerElapsed = 0;
+            timerRunning = true;
             const display = document.getElementById('dialogTimer');
+            display.classList.remove('warning');
 
             timerInterval = setInterval(() => {
-                const mins = Math.floor(remaining / 60);
-                const secs = remaining % 60;
+                timerElapsed = Math.floor((Date.now() - timerStartTime) / 1000);
+                const mins = Math.floor(timerElapsed / 60);
+                const secs = timerElapsed % 60;
                 display.textContent = `${mins}:${secs.toString().padStart(2, '0')}`;
-
-                if (remaining <= 10) {
-                    display.classList.add('warning');
-                } else {
-                    display.classList.remove('warning');
-                }
-
-                remaining--;
-
-                if (remaining < 0) {
-                    clearInterval(timerInterval);
-                    display.textContent = '⏰ ZEIT!';
-                    setTimeout(() => {
-                        display.textContent = '--:--';
-                        display.classList.remove('warning');
-                    }, 2000);
-                }
             }, 1000);
         }
 
-        // Points
+        function stopStopwatch() {
+            if (!timerRunning) {
+                alert('⚠️ Timer wurde noch nicht gestartet!');
+                return;
+            }
+            
+            clearInterval(timerInterval);
+            timerRunning = false;
+            const display = document.getElementById('dialogTimer');
+            
+            // Berechne Gems basierend auf verstrichener Zeit
+            const minutes = Math.floor(timerElapsed / 60);
+            const seconds = timerElapsed % 60;
+            let gems = 0;
+            
+            if (timerElapsed >= 60 && timerElapsed < 120) {
+                gems = 5;  // 1 volle Minute
+            } else if (timerElapsed >= 120 && timerElapsed < 180) {
+                gems = 20; // 2 volle Minuten
+            } else if (timerElapsed >= 180 && timerElapsed < 300) {
+                gems = 40; // 3 volle Minuten
+            } else if (timerElapsed >= 300) {
+                gems = 100; // 5+ volle Minuten
+            }
+            
+            // Zeige gestoppte Zeit
+            display.classList.add('warning');
+            
+            // AUTOMATISCHE BONUS-GEMS für beide Spieler
+            if (gems > 0) {
+                autoGiveGems(gems, minutes, seconds);
+            } else {
+                alert(`⏱️ Zeit: ${minutes}:${seconds.toString().padStart(2, '0')}\n\n⚠️ Weniger als 1 Minute - keine Gems!\n\n💡 Du kannst trotzdem manuell Punkte vergeben.`);
+            }
+        }
+
+        // Automatische BONUS-GEMS für beide Spieler
+        function autoGiveGems(gems, minutes, seconds) {
+            if (!currentPlayer1 || !currentPlayer2) {
+                alert('Fehler: Keine Spieler ausgewählt!');
+                return;
+            }
+
+            // Gems für Spieler 1
+            const team1 = teams[currentPlayer1.team];
+            let participant1 = team1.participants.find(p => p.name === currentPlayer1.name && p.level === currentPlayer1.level);
+            if (participant1) {
+                participant1.points = (participant1.points || 0) + gems;
+            }
+
+            // Gems für Spieler 2
+            const team2 = teams[currentPlayer2.team];
+            let participant2 = team2.participants.find(p => p.name === currentPlayer2.name && p.level === currentPlayer2.level);
+            if (participant2) {
+                participant2.points = (participant2.points || 0) + gems;
+            }
+
+            // Zeige Benachrichtigung
+            alert(`⏱️ Zeit: ${minutes}:${seconds.toString().padStart(2, '0')}\n\n✨ Beide Spieler erhalten ${gems} Gems automatisch!\n\n💡 Du kannst jetzt noch EXTRA-Punkte manuell vergeben!`);
+        }
+
+        // Manuelle Punktevergabe (ZUSÄTZLICH zu automatischen Gems)
         function givePoints(player) {
             const points = parseInt(document.getElementById(`points${player}`).value);
             const playerData = player === 1 ? currentPlayer1 : currentPlayer2;
@@ -1294,10 +1354,13 @@
             document.getElementById('result1Avatar').textContent = currentPlayer1.teamIcon;
             document.getElementById('result1Name').textContent = currentPlayer1.name;
             document.getElementById('result1Points').textContent = 
-                player === 1 ? `${points} Punkte ${levelIcons[currentPlayer1.level]}` : `0 Punkte ${levelIcons[currentPlayer1.level]}`;
+                player === 1 ? `+${points} Extra-Punkte ${levelIcons[currentPlayer1.level]}` : `${levelIcons[currentPlayer1.level]}`;
 
             document.getElementById('result2Avatar').textContent = currentPlayer2.teamIcon;
             document.getElementById('result2Name').textContent = currentPlayer2.name;
+            document.getElementById('result2Points').textContent = 
+                player === 2 ? `+${points} Extra-Punkte ${levelIcons[currentPlayer2.level]}` : `${levelIcons[currentPlayer2.level]}`;
+        }
             document.getElementById('result2Points').textContent = 
                 player === 2 ? `${points} Punkte ${levelIcons[currentPlayer2.level]}` : `0 Punkte ${levelIcons[currentPlayer2.level]}`;
         }
