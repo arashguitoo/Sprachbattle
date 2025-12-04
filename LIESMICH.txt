@@ -1,0 +1,59 @@
+📦 SPRECHBATTLE ARENA - TESTPAKET
+==================================
+
+Inhalt dieses Pakets:
+--------------------
+
+🎮 HAUPTANWENDUNG:
+  ├─ index.html              → Sprechbattle Arena (für Browser & GitHub Pages)
+  └─ README.md               → Info für GitHub Repository
+
+📖 ANLEITUNGEN:
+  ├─ ANLEITUNG.html          → Kompakter Nutzungsguide (im Browser lesen)
+  └─ ANLEITUNG.pdf           → Nutzungsguide zum Drucken
+
+📝 BEWERTUNG:
+  ├─ BEWERTUNG-REDEMITTEL.pdf           → Bögen & Redemittel zum Drucken
+  ├─ BEWERTUNG-REDEMITTEL-DRUCK.html    → Druckversion (Quelle)
+  └─ bewertung-redemittel.html          → Browser-Version (zum Ausfüllen)
+
+📋 ZUSATZMATERIAL:
+  ├─ situationskarten.html   → Karten zum Ausdrucken (optional)
+  └─ zertifikate.html        → Zertifikate zum Ausdrucken
+
+⚡ SCHNELLSTART:
+--------------
+
+1. Öffne index.html im Browser (F11 für Vollbild)
+2. Namen eingeben + Levels wählen (🔴🟢🟣)
+3. Roulette drehen → Dialog starten → Punkte vergeben
+
+📚 ERSTE SCHRITTE:
+-----------------
+
+1. Lies: ANLEITUNG.pdf (10 Minuten)
+2. Teste: index.html öffnen & durchklicken
+3. Drucke aus: BEWERTUNG-REDEMITTEL.pdf
+
+🌐 FÜR GITHUB PAGES:
+-------------------
+
+1. Repository erstellen
+2. Alle Dateien hochladen
+3. Settings → Pages → main branch aktivieren
+4. Fertig! Deine Arena läuft online
+
+💡 EMPFEHLUNG:
+-------------
+
+Woche 1-2: 🔴 Rubin + 🎭 Klassisch (Vertrautheit)
+Woche 3-4: 🔴🟢 + 🎭🎁 (Abwechslung)
+Woche 5-6: Alle Modi + 🟣 Amethyst (Prüfung)
+
+📧 FEEDBACK:
+-----------
+
+Viel Erfolg in der Testphase! 🎉
+Für JIK-AWO 25/26, Kiel
+
+Made with 💜 für Deutschlerner

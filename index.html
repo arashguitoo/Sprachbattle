@@ -312,14 +312,15 @@
 
         .roulette-container {
             display: flex;
-            gap: 60px;
+            gap: 40px;
             align-items: center;
-            margin-bottom: 40px;
+            margin: 25px 0;
+            justify-content: center;
         }
 
         .roulette-slot {
-            width: 320px;
-            height: 400px;
+            width: 250px;
+            height: 320px;
             background: rgba(255,255,255,0.05);
             border: 3px solid rgba(255,255,255,0.2);
             border-radius: 15px;
@@ -343,8 +344,8 @@
 
         .slot-label {
             position: absolute;
-            top: 15px;
-            font-size: 1.1em;
+            top: 12px;
+            font-size: 0.95em;
             opacity: 0.7;
             text-transform: uppercase;
             letter-spacing: 2px;
@@ -355,28 +356,28 @@
         }
 
         .slot-team-icon {
-            font-size: 3.5em;
-            margin-bottom: 12px;
+            font-size: 3em;
+            margin-bottom: 10px;
         }
 
         .slot-name {
-            font-size: 2em;
+            font-size: 1.6em;
             font-weight: bold;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
         }
 
         .slot-team {
-            font-size: 1.1em;
+            font-size: 0.95em;
             opacity: 0.8;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
         }
 
         .slot-level {
-            font-size: 1.8em;
+            font-size: 1.5em;
         }
 
         .vs-divider {
-            font-size: 5em;
+            font-size: 3.5em;
             font-weight: bold;
             background: linear-gradient(135deg, #ff4444 0%, #4444ff 100%);
             -webkit-background-clip: text;
@@ -386,45 +387,50 @@
         .situation-display {
             width: 90%;
             max-width: 1000px;
+            margin: 20px auto 25px auto;
         }
 
         .situation-box {
-            background: rgba(255,215,0,0.1);
+            background: linear-gradient(135deg, rgba(255,215,0,0.15), rgba(255,215,0,0.05));
             border: 3px solid rgba(255,215,0,0.5);
             border-radius: 12px;
-            padding: 30px;
+            padding: 20px 25px;
             text-align: center;
-        }
-
-        .situation-label {
-            font-size: 1.3em;
-            color: #ffd700;
-            margin-bottom: 15px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-
-        .situation-text {
-            font-size: 1.6em;
-            line-height: 1.6;
-        }
-
-        .mystery-words-display {
-            margin-top: 20px;
+            min-height: 100px;
             display: flex;
-            gap: 15px;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .situation-box h3 {
+            font-size: 1.2em;
+            color: #f39c12;
+            margin-bottom: 8px;
+        }
+
+        .situation-box p {
+            font-size: 1.3em;
+            line-height: 1.5;
+            color: white;
+        }
+
+        .mystery-words {
+            display: flex;
+            gap: 12px;
+            margin-top: 12px;
             justify-content: center;
             flex-wrap: wrap;
         }
 
         .mystery-word {
-            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
             color: white;
-            padding: 10px 25px;
-            border-radius: 8px;
-            font-size: 1.3em;
+            padding: 6px 18px;
+            border-radius: 20px;
             font-weight: bold;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            font-size: 1em;
+            box-shadow: 0 4px 12px rgba(231, 76, 60, 0.4);
         }
 
         /* DIALOG SCREEN */
@@ -822,6 +828,16 @@
             </button>
         </div>
         
+        <!-- SITUATION OBEN - GUT SICHTBAR -->
+        <div class="situation-display">
+            <div class="situation-box">
+                <h3 id="situationTitle">Wähle einen Modus</h3>
+                <p id="situationText">Klicke auf einen Spielmodus oben, dann wähle ein Level!</p>
+                <div id="mysteryWords" class="mystery-words"></div>
+            </div>
+        </div>
+        
+        <!-- KOMPAKTE ROULETTE-SLOTS -->
         <div class="roulette-container">
             <div class="roulette-slot" id="slot1">
                 <div class="slot-label">Spieler 1</div>
@@ -843,14 +859,6 @@
                     <div class="slot-team">Team ???</div>
                     <div class="slot-level">🔴</div>
                 </div>
-            </div>
-        </div>
-
-        <div class="situation-display">
-            <div class="situation-box">
-                <div class="situation-label" id="situationLabel">🎯 Eure Aufgabe</div>
-                <div class="situation-text">Wähle zuerst Spielmodus & Level!</div>
-                <div class="mystery-words-display" id="mysteryWords"></div>
             </div>
         </div>
     </div>
@@ -1179,21 +1187,21 @@
                 // Mode-specific display
                 if (currentMode === 'mystery') {
                     currentMysteryWords = mysteryWords[Math.floor(Math.random() * mysteryWords.length)];
-                    document.getElementById('situationLabel').textContent = '🎁 Mystery Box Challenge';
-                    document.querySelector('.situation-text').textContent = currentSituation;
+                    document.getElementById('situationTitle').textContent = '🎁 Mystery Box Challenge';
+                    document.getElementById('situationText').textContent = currentSituation;
                     const wordsHTML = currentMysteryWords.map(w => `<div class="mystery-word">${w}</div>`).join('');
                     document.getElementById('mysteryWords').innerHTML = wordsHTML;
                 } else if (currentMode === 'schnellfeuer') {
-                    document.getElementById('situationLabel').textContent = '⚡ Schnellfeuer - Reagiert schnell!';
-                    document.querySelector('.situation-text').textContent = currentSituation;
+                    document.getElementById('situationTitle').textContent = '⚡ Schnellfeuer - Reagiert schnell!';
+                    document.getElementById('situationText').textContent = currentSituation;
                     document.getElementById('mysteryWords').innerHTML = '';
                 } else if (currentMode === 'eskalation') {
-                    document.getElementById('situationLabel').textContent = '🔥 Eskalation - Probleme kommen!';
-                    document.querySelector('.situation-text').textContent = currentSituation;
+                    document.getElementById('situationTitle').textContent = '🔥 Eskalation - Probleme kommen!';
+                    document.getElementById('situationText').textContent = currentSituation;
                     document.getElementById('mysteryWords').innerHTML = '';
                 } else {
-                    document.getElementById('situationLabel').textContent = '🎭 Eure Aufgabe';
-                    document.querySelector('.situation-text').textContent = currentSituation;
+                    document.getElementById('situationTitle').textContent = '🎭 Klassischer Dialog';
+                    document.getElementById('situationText').textContent = currentSituation;
                     document.getElementById('mysteryWords').innerHTML = '';
                 }
             }, 2000);

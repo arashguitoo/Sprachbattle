@@ -6,6 +6,7 @@ Digitale Sprechtraining-Arena für Integrationskurse (A2-B1)
 
 1. **Öffne `index.html`** im Browser (oder nutze GitHub Pages)
 2. **Namen eingeben** + Level wählen (🔴 Rubin / 🟢 Smaragd / 🟣 Amethyst)
+   - ODER: **📥 JSON importieren** aus deinem Punkteverwaltungssystem
 3. **Spielmodus wählen** (🎭 Klassisch / 🎁 Mystery Box / ⚡ Schnellfeuer / 🔥 Eskalation)
 4. **Level klicken** → System wählt 2 Spieler + Situation
 5. **Dialog starten** → Timer läuft → Punkte vergeben
@@ -46,7 +47,35 @@ Digitale Sprechtraining-Arena für Integrationskurse (A2-B1)
 ✅ Punktesystem mit Scoreboard  
 ✅ 4 Teams (Mond, Sonne, Stern, Ozean)  
 ✅ 3 Levels pro Spieler  
+✅ **JSON Import/Export** - Integration mit Punkteverwaltungssystemen  
 ✅ Komplett offline nutzbar  
+
+## 📥 JSON Import/Export
+
+**Daten importieren:**
+1. Button "📥 JSON importieren" im Setup-Screen
+2. JSON-Datei auswählen (Format siehe `beispiel-teilnehmer.json`)
+3. Namen + Levels werden automatisch geladen
+
+**Daten exportieren:**
+1. Button "💾 JSON exportieren"
+2. Datei wird heruntergeladen
+3. Kann später wieder importiert werden
+
+**JSON-Format:**
+```json
+{
+  "teams": {
+    "mond": {
+      "participants": [
+        {"name": "Ahmed", "level": "rubin", "points": 0}
+      ]
+    }
+  }
+}
+```
+
+Unterstützte Levels: `rubin`, `smaragd`, `amethyst`  
 
 ## 📝 Für Entwickler
 
