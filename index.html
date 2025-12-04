@@ -741,6 +741,15 @@
         <div class="setup-header">
             <h1>🎤 Sprechbattle Arena</h1>
             <p>Trage die Namen der Teilnehmer ein und wähle ihr Level</p>
+            <div style="margin-top: 15px;">
+                <button class="control-btn success" onclick="document.getElementById('jsonImport').click()">
+                    📥 JSON importieren
+                </button>
+                <button class="control-btn warning" onclick="exportJSON()">
+                    💾 JSON exportieren
+                </button>
+                <input type="file" id="jsonImport" accept=".json" style="display: none;" onchange="importJSON(event)">
+            </div>
         </div>
         
         <div class="setup-grid">
@@ -1335,6 +1344,101 @@
                 clearInterval(timerInterval);
                 showScreen('setupScreen');
             }
+        }
+
+        // JSON Import/Export
+        function exportJSON() {
+            const data = {
+                teams: teams,
+                timestamp: new Date().toISOString()
+            };
+            
+            const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'sprechbattle-teilnehmer.json';
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+
+        function importJSON(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const data = JSON.parse(e.target.result);
+                    
+                    // Import data
+                    if (data.teams) {
+                        Object.keys(data.teams).forEach(teamKey => {
+                            if (teams[teamKey]) {
+                                teams[teamKey].participants = data.teams[teamKey].participants || [];
+                                
+                                // Update UI
+                                const container = document.getElementById(`participants-${teamKey}`);
+                                container.innerHTML = '';
+                                
+                                // Add existing participants
+                                teams[teamKey].participants.forEach(participant => {
+                                    const row = document.createElement('div');
+                                    row.className = 'participant-row';
+                                    
+                                    const input = document.createElement('input');
+                                    input.type = 'text';
+                                    input.className = 'participant-input';
+                                    input.value = participant.name || participant;
+                                    input.dataset.level = participant.level || 'rubin';
+                                    input.addEventListener('blur', () => updateParticipants(teamKey));
+                                    input.addEventListener('keypress', (e) => {
+                                        if (e.key === 'Enter') updateParticipants(teamKey);
+                                    });
+                                    
+                                    const levelButtons = document.createElement('div');
+                                    levelButtons.className = 'level-buttons';
+                                    
+                                    ['rubin', 'smaragd', 'amethyst'].forEach(level => {
+                                        const btn = document.createElement('button');
+                                        btn.className = `level-btn ${level}`;
+                                        if (level === input.dataset.level) {
+                                            btn.classList.add('active');
+                                        }
+                                        btn.textContent = levelIcons[level];
+                                        btn.dataset.level = level;
+                                        btn.onclick = (e) => {
+                                            e.preventDefault();
+                                            row.querySelectorAll('.level-btn').forEach(b => b.classList.remove('active'));
+                                            btn.classList.add('active');
+                                            input.dataset.level = level;
+                                            updateParticipants(teamKey);
+                                        };
+                                        levelButtons.appendChild(btn);
+                                    });
+                                    
+                                    row.appendChild(input);
+                                    row.appendChild(levelButtons);
+                                    container.appendChild(row);
+                                });
+                                
+                                // Add 3 empty rows for more entries
+                                for (let i = 0; i < 3; i++) {
+                                    addParticipantInput(teamKey);
+                                }
+                            }
+                        });
+                        
+                        alert('JSON erfolgreich importiert! ✅');
+                    }
+                } catch (error) {
+                    alert('Fehler beim Importieren: ' + error.message);
+                }
+            };
+            reader.readAsText(file);
+            
+            // Reset input
+            event.target.value = '';
         }
     </script>
 </body>
