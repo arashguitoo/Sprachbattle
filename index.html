@@ -20,18 +20,26 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: #0a0a0a;
             color: white;
-            overflow: hidden;
+            overflow-x: hidden;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+            touch-action: pan-y;
         }
 
         .screen {
             width: 100vw;
-            height: 100vh;
+            min-height: 100vh;
             display: none;
             position: relative;
+            overflow-y: auto;
+            overflow-x: hidden;
+            -webkit-overflow-scrolling: touch;
+            touch-action: pan-y;
         }
 
         .screen.active {
             display: flex;
+            flex-direction: column;
         }
 
         /* INDEX SCREEN */
@@ -567,6 +575,7 @@
             background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
             flex-direction: column;
             padding: 30px;
+            overflow-y: auto;
         }
 
         .setup-header {
@@ -777,8 +786,8 @@
             background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
             flex-direction: column;
             align-items: center;
-            justify-content: center;
             padding: 40px;
+            overflow-y: auto;
         }
 
         .duell-setup-container {
@@ -857,7 +866,7 @@
         }
 
         /* ROULETTE/DIALOG SCREENS */
-        #rouletteScreen, #duellGameScreen, #uebungscampScreen {
+        #rouletteScreen, #duellGameScreen, #uebungscampScreen, #exerciseScreen {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             flex-direction: column;
             align-items: center;
@@ -1103,6 +1112,10 @@
         }
 
         @media (max-width: 768px) {
+            #rouletteScreen, #duellGameScreen, #uebungscampScreen, #exerciseScreen {
+                padding-bottom: 30vh;
+            }
+
             .setup-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
